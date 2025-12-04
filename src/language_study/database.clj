@@ -13,3 +13,6 @@
 (defn load-rows-for-success []
   (jdbc/execute! db-spec
               ["SELECT correct_answers, total_count FROM words"]))
+
+(defn load-all-words []
+  (jdbc/execute! db-spec ["SELECT word, translation FROM words"]))

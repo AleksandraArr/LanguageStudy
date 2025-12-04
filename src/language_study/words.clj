@@ -19,3 +19,10 @@
   (let [rows (db/load-rows-for-success)]
     (/ (apply + (map :words/correct_answers rows))
        (apply + (map :words/total_count rows)))))
+
+(defn get-random-word []
+  (let [ws (db/load-all-words)]
+    (nth ws (rand-int (count ws)))))
+
+(defn compare-words [word1 word2]
+  (= (.toLowerCase word1) (.toLowerCase word2)))

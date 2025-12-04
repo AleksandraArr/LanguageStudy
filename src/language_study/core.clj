@@ -5,5 +5,10 @@
 (defn -main []
   (println "All rows :" (db/load-rows-for-success))
   (println "Success rate:" (ws/success_rate))
-  (println "Success rate:" (ws/success_rate_from_class)))
-
+  (println "Success rate:" (ws/success_rate_from_class))
+  (let [w (ws/get-random-word)]
+    (println "Translate this word:" (:words/word w))
+    (let [user-input (read-line)]
+      (if (ws/compare-words user-input (:words/translation w))
+        (println "Correct!")
+        (println "Wrong, correct answer is:" (:words/translation w))))))
