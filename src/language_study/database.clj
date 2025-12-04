@@ -11,8 +11,25 @@
   (def ds (jdbc/get-datasource db-spec))
 
 (defn load-rows-for-success []
-  (jdbc/execute! db-spec
-              ["SELECT correct_answers, total_count FROM words"]))
+                       (map (fn [row]
+                              {:word            (:words/word row)
+                               :translation     (:words/translation row)
+                               :correct_answers (:words/correct_answers row)
+                               :total_count     (:words/total_count row)})
+                            (jdbc/execute! ds
+                                           ["SELECT correct_answers, total_count FROM words"])))
 
 (defn load-all-words []
-  (jdbc/execute! db-spec ["SELECT word, translation FROM words"]))
+  (map (fn [row]
+         {:word            (:words/word row)
+          :translation     (:words/translation row)
+          :correct_answers (:words/correct_answers row)
+          :total_count     (:words/total_count row)})
+       (jdbc/execute! ds
+                      ["SELECT word, translation, correct_answers, total_count FROM words"])))
+
+
+(defn insert-word [word translation]
+  (jdbc/execute! ds
+                 ["INSERT INTO words (word, translation) VALUES (?, ?)"
+                  word translation]))
