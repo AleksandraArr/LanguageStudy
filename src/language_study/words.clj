@@ -4,14 +4,14 @@
 (defn success_rate_from_class []
   (let [[total-correct total-count]
         (reduce (fn [[sum-correct sum-total] row]
-                  [(+ sum-correct (:words/correct_answers row))
-                   (+ sum-total   (:words/total_count row))])
+                  [(+ sum-correct (:correct_answers row))
+                   (+ sum-total   (:total_count row))])
                 [0 0]
-                [{:words/correct_answers 4 :words/total_count 5}
-                 {:words/correct_answers 2 :words/total_count 6}
-                 {:words/correct_answers 6 :words/total_count 7}
-                 {:words/correct_answers 4 :words/total_count 8}
-                 {:words/correct_answers 7 :words/total_count 9}])]
+                [{:correct_answers 4 :total_count 5}
+                 {:correct_answers 2 :total_count 6}
+                 {:correct_answers 6 :total_count 7}
+                 {:correct_answers 4 :total_count 8}
+                 {:correct_answers 7 :total_count 9}])]
     (/ total-correct total-count)))
 
 
