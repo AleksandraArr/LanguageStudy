@@ -8,6 +8,7 @@
   (println "Success rate:" (ws/success_rate_average))
   (println "Success rate:" (ws/success_rate_from_class))
   (println "Advent of code:" (class/advent-of-code))
+  (println "Advent of code:" (class/advent-of-code-part-2))
   (println "Statistic:" (ws/statistics))
   (println "Enter the name of the document:")
   (let [name-of-file (read-line)]

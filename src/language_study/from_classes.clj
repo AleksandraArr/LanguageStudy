@@ -12,6 +12,20 @@
            (clojure.string/replace (clojure.string/replace s #"R" "") #"L" "-")))
        (str/split-lines (slurp "direction.txt"))))
 
+;;Advent of code without functions - part 2
+(defn advent-of-code-part-2 []
+  (reduce
+    (fn [[pos cnt] step]
+      [(mod (+ pos step) 100)
+       (if (pos? step)
+         (+ cnt (quot (+ pos step) 100))
+         (+ cnt (quot (abs (- (- 100 pos) step)) 100)))])
+    [50 0]
+    (map (fn [s]
+           (Integer/parseInt
+             (clojure.string/replace (clojure.string/replace s #"R" "") #"L" "-")))
+         (str/split-lines (slurp "direction.txt")))))
+
 (defn read-file [text]
     (str/split-lines (slurp text)))
 
