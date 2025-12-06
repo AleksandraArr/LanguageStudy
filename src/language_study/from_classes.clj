@@ -19,7 +19,7 @@
       [(mod (+ pos step) 100)
        (if (pos? step)
          (+ cnt (quot (+ pos step) 100))
-         (+ cnt (quot (abs (- (- 100 pos) step)) 100)))])
+         (+ cnt (quot (+ (- 100  pos) (abs step)) 100) (if (zero? pos) -1 0) ))])
     [50 0]
     (map (fn [s]
            (Integer/parseInt
