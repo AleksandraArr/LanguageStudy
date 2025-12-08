@@ -35,6 +35,14 @@
     [[] 0]
     coll))
 
+;;Returns only string with less then 4
+(defn small-strings [lst]
+  (filter #(<= (count %) 3) lst))
+
+;;Returns the number of characters
+(defn count-of-character [lst]
+  (reduce + (map count lst)))
+
 
 (defn read-file [text]
     (str/split-lines (slurp text)))
