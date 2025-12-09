@@ -1,20 +1,47 @@
 (ns language_study.core (:gen-class)
-                        (:require [language_study.words :as ws])
-                        (:require [language_study.from-classes :as class])
-                        (:require [language_study.database :as db]))
+                        (:require [language_study.auth :as auth]
+                                  [language_study.database :as db]
+                                  [language_study.words :as words]))
+
+(defn main-menu [user]
+  (loop []
+    (println "\n--- Menu ---")
+    (println "1. Add word")
+    (println "2. Random word")
+    (println "3. Word list")
+    (println "4. Exit")
+    (print "> ") (flush)
+    (case (read-line)
+      "1" (do (print "Word: ") (flush)
+              (let [w (read-line)]
+                (print "Translation: ") (flush)
+                (let [t (read-line)]
+                  (db/add-word! (:users/id user) w t)))
+              (recur))
+      "2" (do (println (db/random-word (:users/id user)))
+              (recur))
+      "3" (do (doseq [row (db/list-words (:users/id user))]
+                (println (:words/word row) "-" (:words/translation row)))
+              (recur))
+      "4" (println "Goodbye!")
+      (do (println "Unknown option.") (recur)))))
 
 (defn -main []
-  (println "All rows :" (db/load-all-words))
-  (println "Success rate:" (ws/success_rate_average))
-  (println "Success rate:" (ws/success_rate_from_class))
-  (println "Statistic:" (ws/statistics))
-  (println "Enter the name of the document:")
-  (let [name-of-file (read-line)]
-    (println "Words from document:" (ws/read-words-from-file name-of-file)))
-  (let [w (ws/get-random-word)]
-    (println "Translate this word:" (:word w))
-    (let [user-input (read-line)]
-      (if (ws/compare-words user-input (:translation w))
-        (println "Correct!")
-        (println "Wrong, correct answer is:" (:translation w)))))
-  )
+  (println "1. Register")
+  (println "2. Login")
+  (print "> ") (flush)
+  (case (read-line)
+    "1" (do (print "Username: ") (flush)
+            (let [u (read-line)]
+              (print "Password: ") (flush)
+              (let [p (read-line)]
+                (auth/register! u p))))
+    "2" (do (print "Username: ") (flush)
+            (let [u (read-line)]
+              (print "Password: ") (flush)
+              (let [p (read-line)
+                    user (auth/login u p)]
+                (if user
+                  (main-menu user)
+                  (println "Wrong username or password.")))))
+    (println "Unknown option.")))

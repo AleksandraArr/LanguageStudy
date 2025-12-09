@@ -1,6 +1,7 @@
 (ns language_study.words
-          (:require [language_study.database :as db])
-          (:require [clojure.string :as str]))
+  (:require
+    [language_study.database :as db]
+    [clojure.string :as str]))
 
 (defn success_rate_from_class []
   (let [[total-correct total-count]

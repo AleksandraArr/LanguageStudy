@@ -26,7 +26,7 @@
              (clojure.string/replace (clojure.string/replace s #"R" "") #"L" "-")))
          (str/split-lines (slurp "direction.txt")))))
 
-;implemented map with reduce
+;Implemented map with reduce
 (defn my-map-with-count [coll]
   (reduce
     (fn [[v n] x]

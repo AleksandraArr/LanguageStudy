@@ -33,3 +33,19 @@
   (jdbc/execute! ds
                  ["INSERT INTO words (word, translation) VALUES (?, ?)"
                   word translation]))
+
+(defn add-word! [user-id word translation]
+  (jdbc/execute! ds
+                 ["INSERT INTO words (user_id, word, translation) VALUES (?,?,?)"
+                  user-id word translation])
+  (println "Word added."))
+
+(defn random-word [user-id]
+  (first (jdbc/execute! ds
+                        ["SELECT * FROM words WHERE user_id=? ORDER BY RANDOM() LIMIT 1"
+                         user-id])))
+
+(defn list-words [user-id]
+  (jdbc/execute! ds
+                 ["SELECT id, word, translation, created_at FROM words WHERE user_id=? ORDER BY created_at"
+                  user-id]))
