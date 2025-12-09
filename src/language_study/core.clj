@@ -18,8 +18,17 @@
                 (let [t (read-line)]
                   (db/add-word! (:users/id user) w t)))
               (recur))
-      "2" (do (println (db/random-word (:users/id user)))
-              (recur))
+      "2" (do
+            (let [row (db/random-word (:users/id user))
+                  word (:words/word row)
+                  correct (:words/translation row)]
+              (println "Word:" word)
+              (print "Your translation: ") (flush)
+              (let [user-answer (read-line)]
+                (if (words/compare-words user-answer correct)
+                  (println "Correct!")
+                  (println "Wrong! Correct translation is:" correct))))
+            (recur))
       "3" (do (doseq [row (db/list-words (:users/id user))]
                 (println (:words/word row) "-" (:words/translation row)))
               (recur))
