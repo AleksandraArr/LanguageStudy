@@ -61,3 +61,19 @@
           [50 0]
           (map parsing
                (read-file "direction.txt"))))
+
+;;Fibonacci with recursion
+((fn [lst n]
+   (if (= (count lst) n)
+     lst
+     (recur (conj lst (+ (last lst) (nth lst (- (count lst) 2)))) n)))
+ [1 1] 3)
+
+;;Fibonacci with reduce
+((fn [n]
+   (reduce (fn [lst _]
+             (conj lst
+                   (+ (last lst)
+                      (nth lst (- (count lst) 2)))))
+           [1 1]
+           (range (- n 2)))) 3)

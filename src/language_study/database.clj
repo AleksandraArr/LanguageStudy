@@ -49,3 +49,12 @@
   (jdbc/execute! ds
                  ["SELECT id, word, translation, created_at FROM words WHERE user_id=? ORDER BY created_at"
                   user-id]))
+
+(defn update-word-stats
+  [word-id correct?]
+  (jdbc/execute! ds
+                 [(str "UPDATE words SET "
+                       "total_count = total_count + 1"
+                       (when correct? ", correct_answers = correct_answers + 1")
+                       " WHERE id = ?")
+                  word-id]))
