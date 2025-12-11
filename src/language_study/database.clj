@@ -47,7 +47,7 @@
 
 (defn list-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT id, word, translation, created_at FROM words WHERE user_id=? ORDER BY created_at"
+                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at"
                   user-id]))
 
 (defn update-word-stats

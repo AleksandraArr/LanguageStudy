@@ -1,7 +1,8 @@
 (ns language_study.words
   (:require
     [language_study.database :as db]
-    [clojure.string :as str]))
+    [clojure.string :as str]
+    [dk.ative.docjure.spreadsheet :as excel]))
 
 (defn success_rate_from_class []
   (let [[total-correct total-count]
@@ -35,9 +36,6 @@
                    :success     (success_rate row)})
                 (db/load-all-words))))
 
-(defn get-random-word []
-  (let [ws (db/load-all-words)]
-    (nth ws (rand-int (count ws)))))
 
 (defn compare-words [word1 word2]
   (= (.toLowerCase word1) (.toLowerCase word2)))
@@ -50,3 +48,38 @@
          (db/insert-word word translation)
          {:word word :translation translation})
        (read-from-file file-name)))
+
+(defn weight-of-word [row]
+  (let [correct (:words/correct_answers row)
+        total   (:words/total_count row)]
+    (if (zero? total)
+      1.0
+      (- 1 (/ correct total)))))
+
+(defn weighted-rand [items weight-fn]
+  (loop [r (* (reduce + (map weight-fn items)) (rand))
+         items items]
+    (if (<= r (weight-fn (first items)))
+      (first items)
+      (recur (- r (weight-fn (first items))) (rest items)))))
+
+(defn get-random-word [user-id]
+  (let [rows (db/list-words user-id)]
+    (weighted-rand rows weight-of-word)))
+
+(def default-path "reports/export.xlsx")
+
+(defn export-xlsx! [user-id]
+  (let [words (db/list-words user-id)
+        wb (excel/create-workbook
+             "Words"
+             (concat
+               [["word" "translation" "success" "total"]]
+               (map (fn [row]
+                      [(row :words/word)
+                       (row :words/translation)
+                       (row :words/correct_answers)
+                       (row :words/total_count)])
+                    words)))]
+    (excel/save-workbook! default-path wb)
+    (println "Export finished. Saved as:" default-path)))

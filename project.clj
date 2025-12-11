@@ -7,7 +7,7 @@
   :dependencies [[org.clojure/clojure "1.12.2"]
                  [com.github.seancorfield/next.jdbc "1.3.834"]
                  [org.postgresql/postgresql "42.2.10"]
-                 [com.github.seancorfield/honeysql "2.3.928"]]
+                 [dk.ative/docjure"1.14.0"]]
 
   :main ^:skip-aot language_study.core
   :target-path "target/%s"

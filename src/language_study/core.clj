@@ -10,7 +10,8 @@
     (println "2. Translate the word")
     (println "3. Word list")
     (println "4. My statistic")
-    (println "5. Exit")
+    (println "5. Export words to Excel")
+    (println "6. Exit")
     (print "> ") (flush)
     (case (read-line)
       "1" (do (print "Word: ") (flush)
@@ -20,7 +21,7 @@
                   (db/add-word! (:users/id user) w t)))
               (recur))
       "2" (do
-            (let [row (db/random-word (:users/id user))
+            (let [row (words/get-random-word (:users/id user))
                   word (:words/word row)
                   correct (:words/translation row)
                   id (:words/id row)]
@@ -43,7 +44,9 @@
               (recur))
       "4" (do (println (words/statistics))
               (recur))
-      "5" (println "Goodbye!")
+      "5" (do (words/export-xlsx! (:users/id user))
+              (recur))
+      "6" (println "Goodbye!")
       (do (println "Unknown option.") (recur)))))
 
 (defn -main []
