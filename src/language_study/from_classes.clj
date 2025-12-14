@@ -63,11 +63,12 @@
                (read-file "direction.txt"))))
 
 ;;Fibonacci with recursion
-((fn [lst n]
-   (if (= (count lst) n)
-     lst
-     (recur (conj lst (+ (last lst) (nth lst (- (count lst) 2)))) n)))
- [1 1] 3)
+(defn fibonacci [n]
+  ((fn [lst n]
+     (if (= (count lst) n)
+       lst
+       (recur (conj lst (+ (last lst) (nth lst (- (count lst) 2)))) n)))
+   [1 1] n))
 
 ;;Fibonacci with reduce
 ((fn [n]

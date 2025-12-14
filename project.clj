@@ -7,8 +7,9 @@
   :dependencies [[org.clojure/clojure "1.12.2"]
                  [com.github.seancorfield/next.jdbc "1.3.834"]
                  [org.postgresql/postgresql "42.2.10"]
-                 [dk.ative/docjure"1.14.0"]]
-
+                 [dk.ative/docjure"1.14.0"]
+                 [midje "1.10.10"]]
+  :plugins [[lein-midje "3.2.1"]]
   :main ^:skip-aot language_study.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
