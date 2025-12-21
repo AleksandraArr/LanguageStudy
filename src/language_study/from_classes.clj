@@ -1,5 +1,7 @@
 (ns language_study.from-classes
-  (:require [clojure.string :as str]))
+  (:require [uncomplicate.fluokitten.core :as fk])
+  (:require [criterium.core :as cc]
+            [clojure.string :as str]))
 
 ;;Advent of code without functions
 (reduce
@@ -78,3 +80,37 @@
                       (nth lst (- (count lst) 2)))))
            [1 1]
            (range (- n 2)))) 3)
+
+(defn dot [x y]
+  (fk/foldmap * 0 + x y))
+
+(def my-array (float-array 10))
+(def my-array-2 (float-array 10))
+
+(defn report [] (cc/quick-bench (dot my-array my-array-2)))
+
+
+(defn generate-matrix
+  [rows cols]
+  (mapv (fn [_] (mapv (fn [_] (+ 1 (rand-int 9))) (range cols)))
+        (range rows)))
+
+(defn dot [x y]
+  (fk/foldmap * 0 + x y))
+
+(defn transpose [m] (apply map vector m))
+
+(defn dot-product [v1 v2]
+  (reduce + (map * v1 v2)))
+
+(defn multiply-matrices [a b]
+  (mapv (fn [row]
+          (mapv (fn [col]
+                  (dot-product row col))
+                (transpose b)))
+        a))
+
+(def A (generate-matrix 1000 1000))
+(def B (generate-matrix 1000 1000))
+
+(defn report [] (time (do (multiply-matrices A B) nil)))

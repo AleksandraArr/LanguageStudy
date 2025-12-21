@@ -7,46 +7,54 @@
   (loop []
     (println "\n--- Menu ---")
     (println "1. Add word")
-    (println "2. Translate the word")
-    (println "3. Word list")
-    (println "4. My statistic")
-    (println "5. Export words to Excel")
-    (println "6. Exit")
+    (println "2. Add category")
+    (println "3. Translate the word")
+    (println "4. Word list")
+    (println "5. My statistic")
+    (println "6. Export words to Excel")
+    (println "7. Exit")
     (print "> ") (flush)
     (case (read-line)
-      "1" (do (print "Word: ") (flush)
-              (let [w (read-line)]
-                (print "Translation: ") (flush)
-                (let [t (read-line)]
-                  (db/add-word! (:users/id user) w t)))
+      "1" (do
+            (print "Word: ") (flush)
+            (let [w (read-line)]
+              (let [categories (db/categories-of-user (:id user))]
+                (println "Your categories:")
+                (doseq [{:keys [:id :name]} categories]
+                  (println id ":" name))
+                (print "Choose category ID: ") (flush)
+                (let [cat-id (Integer/parseInt (read-line))]
+                  (db/add-word! (:id user) w cat-id))))
+            (recur))
+      "2" (do (print "Name of category: ") (flush)
+              (db/add-category! (:id user) (read-line))
               (recur))
-      "2" (do
-            (let [row (words/get-random-word (:users/id user))
-                  word (:words/word row)
-                  correct (:words/translation row)
-                  id (:words/id row)]
+      "3" (do
+            (let [row (words/get-random-word (:id user))
+                  word (:word row)
+                  correct (:translation row)
+                  id (:id row)]
               (println "Word:" word)
               (print "Your translation: ") (flush)
               (let [user-answer (read-line)]
                 (if (words/compare-words user-answer correct)
                   (do
                     (println "Correct!")
-                    (db/update-word-stats id true)
-                    )
+                    (db/update-word-stats id true))
                   (do
                     (println "Wrong! Correct translation is:" correct)
-                    (db/update-word-stats id false))
-                  )
+                    (db/update-word-stats id false)))
                 ))
             (recur))
-      "3" (do (doseq [row (db/list-words (:users/id user))]
-                (println (:words/word row) "-" (:words/translation row)))
+      "4" (do (doseq [row (db/list-words (:id user))]
+                (println (:word row) "-" (:translation row)))
               (recur))
-      "4" (do (println (words/statistics))
+      "5" (do (doseq [row (words/statistics)]
+                (println (:word row) "-" (:translation row) "-" (:success row)))
               (recur))
-      "5" (do (words/export-xlsx! (:users/id user))
+      "6" (do (words/export-xlsx! (:id user))
               (recur))
-      "6" (println "Goodbye!")
+      "7" (println "Goodbye!")
       (do (println "Unknown option.") (recur)))))
 
 (defn -main []

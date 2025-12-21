@@ -50,8 +50,8 @@
        (read-from-file file-name)))
 
 (defn weight-of-word [row]
-  (let [correct (:words/correct_answers row)
-        total   (:words/total_count row)]
+  (let [correct (:correct_answers row)
+        total   (:total_count row)]
     (if (zero? total)
       1.0
       (- 1 (/ correct total)))))
@@ -75,11 +75,6 @@
              "Words"
              (concat
                [["word" "translation" "success" "total"]]
-               (map (fn [row]
-                      [(row :words/word)
-                       (row :words/translation)
-                       (row :words/correct_answers)
-                       (row :words/total_count)])
-                    words)))]
+               words))]
     (excel/save-workbook! default-path wb)
     (println "Export finished. Saved as:" default-path)))

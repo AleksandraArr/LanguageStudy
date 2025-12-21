@@ -1,5 +1,6 @@
 (ns language_study.database
-      (:require [next.jdbc :as jdbc]))
+      (:require [next.jdbc :as jdbc]
+                [next.jdbc.result-set :as rs]))
 
   (def db-spec
        {:dbtype "postgresql"
@@ -20,35 +21,37 @@
                                            ["SELECT correct_answers, total_count FROM words"])))
 
 (defn load-all-words []
-  (map (fn [row]
-         {:word            (:words/word row)
-          :translation     (:words/translation row)
-          :correct_answers (:words/correct_answers row)
-          :total_count     (:words/total_count row)})
-       (jdbc/execute! ds
-                      ["SELECT word, translation, correct_answers, total_count FROM words"])))
+  (jdbc/execute! ds
+                 ["SELECT word, translation, correct_answers, total_count FROM words"]
+                 {:builder-fn rs/as-unqualified-lower-maps}))
 
 
 (defn insert-word [word translation]
   (jdbc/execute! ds
-                 ["INSERT INTO words (word, translation) VALUES (?, ?)"
-                  word translation]))
+                 ["INSERT INTO words (word, translation) VALUES (?, ?)" word translation]
+                 {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn add-word! [user-id word translation]
   (jdbc/execute! ds
-                 ["INSERT INTO words (user_id, word, translation) VALUES (?,?,?)"
-                  user-id word translation])
+                 ["INSERT INTO words (user_id, word, translation) VALUES (?,?,?)" user-id word translation]
+                 {:builder-fn rs/as-unqualified-lower-maps})
   (println "Word added."))
 
-(defn random-word [user-id]
-  (first (jdbc/execute! ds
-                        ["SELECT * FROM words WHERE user_id=? ORDER BY RANDOM() LIMIT 1"
-                         user-id])))
+(defn add-category! [user-id name]
+  (jdbc/execute! ds
+                 ["INSERT INTO word_categories (user_id, name) VALUES (?,?)"  user-id name]
+                 {:builder-fn rs/as-unqualified-lower-maps})
+  (println "Category added."))
+
+(defn categories-of-user [user-id]
+  (jdbc/execute! ds
+                 ["SELECT id, name FROM word_categories WHERE user_id=? ORDER BY id" user-id]
+                 {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn list-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at"
-                  user-id]))
+                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                 {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn update-word-stats
   [word-id correct?]
@@ -56,5 +59,5 @@
                  [(str "UPDATE words SET "
                        "total_count = total_count + 1"
                        (when correct? ", correct_answers = correct_answers + 1")
-                       " WHERE id = ?")
-                  word-id]))
+                       " WHERE id = ?") word-id]
+                 {:builder-fn rs/as-unqualified-lower-maps}))
