@@ -31,9 +31,9 @@
                  ["INSERT INTO words (word, translation) VALUES (?, ?)" word translation]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
-(defn add-word! [user-id word translation]
+(defn add-word! [user-id word translation cat-id]
   (jdbc/execute! ds
-                 ["INSERT INTO words (user_id, word, translation) VALUES (?,?,?)" user-id word translation]
+                 ["INSERT INTO words (user_id, word, translation, category_id) VALUES (?,?,?,?)" user-id word translation cat-id]
                  {:builder-fn rs/as-unqualified-lower-maps})
   (println "Word added."))
 
@@ -59,5 +59,6 @@
                  [(str "UPDATE words SET "
                        "total_count = total_count + 1"
                        (when correct? ", correct_answers = correct_answers + 1")
-                       " WHERE id = ?") word-id]
+                       ", last_attend = NOW() "
+                       "WHERE id = ?") word-id ]
                  {:builder-fn rs/as-unqualified-lower-maps}))

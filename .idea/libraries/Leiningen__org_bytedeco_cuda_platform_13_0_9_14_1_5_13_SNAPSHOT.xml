@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.bytedeco/cuda-platform:13.0-9.14-1.5.13-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/cuda-platform/13.0-9.14-1.5.13-SNAPSHOT/cuda-platform-13.0-9.14-1.5.13-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -113,4 +113,26 @@
 (def A (generate-matrix 1000 1000))
 (def B (generate-matrix 1000 1000))
 
+
 (defn report [] (time (do (multiply-matrices A B) nil)))
+
+(def mika (atom {:name "Mika" :balance 60}))
+(def pera (atom {:name "Pera" :balance 100}))
+(defn calculate [user amount operation] (update user :balance operation amount))
+
+(defn transfer [amount from to]
+  [(when amount >= from :balance
+                (swap! from calculate amount -)
+                (swap! to calculate amount +))])
+(transfer 10 pera mika)
+
+(defn balance-validator
+  [{:keys [balance]}]
+  (comp pos? :balance))
+
+(def mika (ref {:name "Mika" :balance 60 } :validator balance-validator))
+(def pera (ref {:name "Pera" :balance 100 } :validator balance-validator))
+
+(dosync defn transfer [from to amount]
+        (alter from calculate amount -)
+        (alter to calculate amount +))

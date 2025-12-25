@@ -10,17 +10,17 @@
                  [dk.ative/docjure"1.14.0"]
                  [midje "1.10.10"]
                  [uncomplicate/fluokitten "0.10.0"]
-                 [criterium "0.4.6"]]
+                 [uncomplicate/neanderthal "0.60.0"]
+                 [criterium "0.4.6"]
+                 [metosin/malli "0.10.0"]]
   :plugins [[lein-midje "3.2.1"]]
   :main ^:skip-aot language_study.core
   :target-path "target/%s"
 
-  ;; OS-specific native backends
-  :profiles {:dev [:dev/all ~(leiningen.core.utils/get-os)]
-             :dev/all {:dependencies [
-                                      [org.bytedeco/openblas "0.3.30-1.5.12"]]}
-             :windows {:dependencies [[org.bytedeco/mkl "2025.2-1.5.12" :classifier "windows-x86_64-redist"]
-                                      ;; optional, if you want GPU computing with CUDA. Beware: the size of these 2 jars is cca 800 MB.
-                                      [org.bytedeco/cuda-redist "13.0-9.14-1.5.13-20251022.164318-20" :classifier "windows-x86_64"]
-                                      [org.bytedeco/cuda-redist-cublas "13.0-9.14-1.5.13-20251022.164318-20" :classifier "windows-x86_64"]]}}
+
+  :jvm-opts
+  ["-Dclojure.compiler.direct-linking=true"
+   "--enable-native-access=ALL-UNNAMED"]
+
+  :repl-options {:init-ns matrix-operations.core}
   )

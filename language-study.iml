@@ -17,6 +17,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Leiningen: borkdude/dynaload:0.3.5" level="project" />
+    <orderEntry type="library" name="Leiningen: borkdude/edamame:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: camel-snake-kebab:0.4.3" level="project" />
     <orderEntry type="library" name="Leiningen: clj-time:0.15.2" level="project" />
     <orderEntry type="library" name="Leiningen: clj-tuple:0.2.2" level="project" />
@@ -33,8 +35,9 @@
     <orderEntry type="library" name="Leiningen: io.aviso/pretty:1.4.4" level="project" />
     <orderEntry type="library" name="Leiningen: joda-time:2.10" level="project" />
     <orderEntry type="library" name="Leiningen: marick/suchwow:6.0.3" level="project" />
+    <orderEntry type="library" name="Leiningen: metosin/malli:0.10.0" level="project" />
     <orderEntry type="library" name="Leiningen: midje:1.10.10" level="project" />
-    <orderEntry type="library" name="Leiningen: mvxcvi/arrangement:2.1.0" level="project" />
+    <orderEntry type="library" name="Leiningen: mvxcvi/arrangement:2.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: mvxcvi/puget:1.3.4" level="project" />
     <orderEntry type="library" name="Leiningen: nrepl:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.commons/commons-collections4:4.3" level="project" />
@@ -44,25 +47,81 @@
     <orderEntry type="library" name="Leiningen: org.apache.poi/poi-ooxml:4.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.poi/poi:4.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.xmlbeans/xmlbeans:3.1.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/cuda-platform:13.0-9.14-1.5.13-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/cuda:13.0-9.14-1.5.13-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/cuda:13.0-9.14-1.5.13-SNAPSHOT:linux-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/cuda:13.0-9.14-1.5.13-SNAPSHOT:linux-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/cuda:13.0-9.14-1.5.13-SNAPSHOT:windows-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp-platform:1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:android-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:android-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:ios-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:ios-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:linux-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:linux-ppc64le" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:linux-riscv64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:linux-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:macosx-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:macosx-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/javacpp:1.5.12:windows-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/mkl-platform:2025.2-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/mkl:2025.2-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/mkl:2025.2-1.5.12:linux-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/mkl:2025.2-1.5.12:windows-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas-platform:0.3.30-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:android-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:android-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:ios-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:ios-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:linux-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:linux-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:macosx-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:macosx-x86_64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.bytedeco/openblas:0.3.30-1.5.12:windows-x86_64" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojars.brenton/google-diff-match-patch:0.1" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.12.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/core.async:1.8.741" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/core.cache:1.1.234" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/core.memoize:1.1.266" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.rrb-vector:0.1.2" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.specs.alpha:0.4.74" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.unify:0.5.7" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/data.priority-map:1.2.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/java.classpath:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/java.data:1.0.95" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/math.combinatorics:0.2.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/spec.alpha:0.5.238" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/test.check:1.1.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.analyzer.jvm:1.3.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.analyzer:1.2.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.logging:1.2.1" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.macro:0.1.5" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.namespace:1.4.4" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.reader:1.3.6" level="project" />
+    <orderEntry type="library" name="Leiningen: org.jocl/jocl-blast:1.5.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.jocl/jocl:2.0.5" level="project" />
     <orderEntry type="library" name="Leiningen: org.nrepl/incomplete:0.1.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.ow2.asm/asm:9.2" level="project" />
     <orderEntry type="library" name="Leiningen: org.postgresql/postgresql:42.2.10" level="project" />
     <orderEntry type="library" name="Leiningen: org.tcrawley/dynapath:1.1.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/accelerate-platform:0.1.0-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/accelerate:0.1.0-1.5.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/accelerate:0.1.0-1.5.12:macosx-arm64" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/clojure-cpp:0.6.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-accelerate:0.60.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-base:0.60.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-cuda:0.60.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-mkl:0.60.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-openblas:0.60.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.uncomplicate/neanderthal-opencl:0.60.0" level="project" />
     <orderEntry type="library" name="Leiningen: potemkin:0.4.5" level="project" />
     <orderEntry type="library" name="Leiningen: riddley:0.1.12" level="project" />
+    <orderEntry type="library" name="Leiningen: uncomplicate/clojurecl:0.16.2" level="project" />
+    <orderEntry type="library" name="Leiningen: uncomplicate/clojurecuda:0.25.0" level="project" />
+    <orderEntry type="library" name="Leiningen: uncomplicate/commons:0.19.0" level="project" />
     <orderEntry type="library" name="Leiningen: uncomplicate/fluokitten:0.10.0" level="project" />
+    <orderEntry type="library" name="Leiningen: uncomplicate/neanderthal:0.60.0" level="project" />
   </component>
 </module>
