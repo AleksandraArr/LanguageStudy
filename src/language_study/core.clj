@@ -30,9 +30,9 @@
                           (println id ":" name))
                         (print "Choose category ID: ") (flush)
                         (let [cat-id (Integer/parseInt (read-line))]
-                          (db/add-word! (:id user) w t cat-id))))
-                    (println "Translation cannot be empty! Word not added."))))
-              (println "Word cannot be empty! Word not added."))(recur))
+                          (db/add-word! (:id user) w t cat-id)))
+                      (println "Translation cannot be empty! Word not added."))))
+                (println "Word cannot be empty! Word not added.")))(recur))
     "2" (do
           (print "Name of category: ") (flush)
           (db/add-category! (:id user) (read-line))
@@ -86,20 +86,37 @@
       "4" (println "Goodbye!")
       (do (println "Unknown option.") (recur)))))
 
+(defn login-loop []
+  (loop []
+    (print "Username: ") (flush)
+    (let [username (read-line)]
+      (print "Password: ") (flush)
+      (let [user (auth/login username (read-line))]
+        (if user
+          (main-menu user)
+          (do
+            (println "Wrong username or password. Please try again.")
+            (recur)))))))
+
+(defn register-loop []
+  (loop []
+    (print "Username: ") (flush)
+    (let [username (read-line)]
+      (print "Password: ") (flush)
+      (let [err (auth/register! username (read-line))]
+        (if err
+          (do
+            (println "Registration error:" err)
+            (recur))
+          (do
+            (println "User registered successfully! Please login.")
+            (login-loop)))))))
+
 (defn -main []
   (println "1. Register")
   (println "2. Login")
   (print "> ") (flush)
   (case (read-line)
-    "1" (do (print "Username: ") (flush)
-            (let [u (read-line)]
-              (print "Password: ") (flush)
-              (auth/register! u (read-line))))
-    "2" (do (print "Username: ") (flush)
-            (let [u (read-line)]
-              (print "Password: ") (flush)
-              (let [user (auth/login u (read-line))]
-                (if user
-                  (main-menu user)
-                  (println "Wrong username or password.")))))
+    "1" (register-loop)
+    "2" (login-loop)
     (println "Unknown option.")))

@@ -1,6 +1,5 @@
 (ns language_study.validators
-  (:require
-            [malli.core :as m]))
+  (:require [malli.core :as m]))
 
 (def non-empty-string
   (m/schema [:string {:min 1}]))

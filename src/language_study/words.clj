@@ -1,8 +1,10 @@
 (ns language_study.words
-  (:require
-    [language_study.database :as db]
-    [clojure.string :as str]
-    [dk.ative.docjure.spreadsheet :as excel]))
+      (:require
+        [language_study.database :as db]
+        [clojure.string :as str]
+        [dk.ative.docjure.spreadsheet :as excel]
+        [language_study.validators :as validator]
+        [malli.core :as m]))
 
 (defn success_rate [row]
   (if (zero? (:total_count row))
@@ -18,18 +20,11 @@
                    :success     (success_rate row)})
                 (db/load-all-words))))
 
-
 (defn compare-words [word1 word2]
   (= (.toLowerCase word1) (.toLowerCase word2)))
 
 (defn read-from-file [file-name]
   (map #(str/split % #" ") (str/split-lines (slurp file-name))))
-
-(defn read-words-from-file [file-name]
-  (map (fn [[word translation]]
-         (db/insert-word word translation)
-         {:word word :translation translation})
-       (read-from-file file-name)))
 
 (defn weight-of-word [row]
   (let [correct (:correct_answers row)
@@ -76,22 +71,25 @@
                          (map :translation)
                          shuffle
                          (take 4))
-        options (shuffle (conj other-words correct))]
+        options (shuffle (conj other-words correct))
+        num-of-options (count options)]
 
     (println "\nTranslation:" word)
     (doseq [[i opt] (map-indexed vector options)]
       (println (inc i) ")" opt))
 
-    (print "Choose the correct English word: ") (flush)
+    (print "Choose the correct word: ") (flush)
     (let [user-choice (Integer/parseInt (read-line))
           answer (nth options (dec user-choice))]
-      (if (compare-words answer correct)
-        (do
-          (println "Correct!")
-          (db/update-word-stats id true))
-        (do
-          (println "Wrong! Correct answer is:" correct)
-          (db/update-word-stats id false))))))
+      (if (m/validate validator/number-in-options num-of-options user-choice)
+        (if (compare-words answer correct)
+               (do
+                 (println "Correct!")
+                 (db/update-word-stats id true))
+               (do
+                 (println "Wrong! Correct answer is:" correct)
+                 (db/update-word-stats id false))))
+      (println "Word cannot be empty! Word not added."))))
 
 (defn translate-word-exercise [user]
   (let [row (get-random-word (:id user))]

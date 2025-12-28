@@ -8,12 +8,11 @@
     (jdbc/execute! ds
                    ["INSERT INTO users (username, password) VALUES (?,?)" username password]
                    {:builder-fn rs/as-unqualified-lower-maps})
-    (println "User registered.")
+    nil
     (catch Exception e
-      (println "Error."))))
+      (.getMessage e))))
 
 (defn login [username password]
-  (first
-    (jdbc/execute! ds
-                   ["SELECT * FROM users WHERE username=? AND password=?" username password]
-                   {:builder-fn rs/as-unqualified-lower-maps})))
+  (first (jdbc/execute! ds
+                        ["SELECT * FROM users WHERE username=? AND password=?" username password]
+                        {:builder-fn rs/as-unqualified-lower-maps})))
