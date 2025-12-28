@@ -56,14 +56,17 @@
     (println "\n--- Exercises Menu ---")
     (println "1. Translate the word")
     (println "2. Multiple Choice")
-    (println "3. Back to main menu")
+    (println "3. Translate the sentence")
+    (println "4. Back to main menu")
     (print "> ") (flush)
     (case (read-line)
       "1" (do (words/translate-word-exercise user)
             (recur))
       "2" (do (words/multiple-choice-exercise user)
             (recur))
-      "3" nil
+      "3" (do (words/translate-sentence-exercise (:id user))
+              (recur))
+      "4" nil
       (do (println "Unknown option.") (recur)))))
 
 

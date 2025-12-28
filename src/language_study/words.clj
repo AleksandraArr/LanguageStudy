@@ -2,6 +2,7 @@
       (:require
         [language_study.database :as db]
         [clojure.string :as str]
+        [language_study.ai :as ai]
         [dk.ative.docjure.spreadsheet :as excel]
         [language_study.validators :as validator]
         [malli.core :as m]))
@@ -61,6 +62,14 @@
     (excel/save-workbook! default-path wb)
     (println "Export finished. Saved as:" default-path)))
 
+(defn random-sentence-for-user [user-id]
+  (let [words (db/list-words-for-ai user-id)
+        sentence (ai/generate-sentence words)]
+    (println "Random words:" words)
+    (println "Generated sentence:" sentence)
+    sentence))
+
+
 (defn multiple-choice-exercise [user]
   (let [row (get-random-word (:id user))
         correct (:translation row)
@@ -79,17 +88,16 @@
       (println (inc i) ")" opt))
 
     (print "Choose the correct word: ") (flush)
-    (let [user-choice (Integer/parseInt (read-line))
-          answer (nth options (dec user-choice))]
-      (if (m/validate validator/number-in-options num-of-options user-choice)
-        (if (compare-words answer correct)
+    (let [user-choice (Integer/parseInt (read-line))]
+      (if (m/validate validator/number-in-options user-choice )
+        (if (compare-words (nth options (dec user-choice)) correct)
                (do
                  (println "Correct!")
                  (db/update-word-stats id true))
                (do
                  (println "Wrong! Correct answer is:" correct)
-                 (db/update-word-stats id false))))
-      (println "Word cannot be empty! Word not added."))))
+                 (db/update-word-stats id false)))
+        (println "Your choice doesn't exist.")))))
 
 (defn translate-word-exercise [user]
   (let [row (get-random-word (:id user))]
@@ -104,3 +112,15 @@
           (do
             (println "Wrong! Correct translation is:" (:translation row))
             (db/update-word-stats (:id row) false)))))))
+
+(defn translate-sentence-exercise [id]
+  (let [words (vec (db/list-words-for-ai id))
+        sentence (ai/generate-sentence words)]
+    (when sentence
+      (println words)
+      (println "Sentence:" sentence)
+      (print "Your translation: ") (flush)
+      (let [user-input (read-line)
+            feedback (ai/check-translation sentence user-input)]
+        (println feedback))
+      )))

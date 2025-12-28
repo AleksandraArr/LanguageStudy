@@ -12,7 +12,10 @@
                  [uncomplicate/fluokitten "0.10.0"]
                  [uncomplicate/neanderthal "0.60.0"]
                  [criterium "0.4.6"]
-                 [metosin/malli "0.10.0"]]
+                 [metosin/malli "0.10.0"]
+                 [net.clojars.wkok/openai-clojure "0.23.0"]
+                 [hato "0.9.0"]
+                 [cheshire "5.12.0"]]
   :plugins [[lein-midje "3.2.1"]]
   :main ^:skip-aot language_study.core
   :target-path "target/%s"

@@ -4,5 +4,6 @@
 (def non-empty-string
   (m/schema [:string {:min 1}]))
 
-(defn number-in-options [valid-options user-input]
-  (some #(= % user-input) valid-options))
+(defn number-in-options [num-of-options user-input]
+  (and (integer? user-input)
+       (<= 1 user-input num-of-options)))

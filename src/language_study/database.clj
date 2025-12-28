@@ -38,6 +38,14 @@
                  ["SELECT * FROM words WHERE user_id=? ORDER BY created_at" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
+(defn list-words-for-ai [user-id]
+  (->> (jdbc/execute! ds
+                      ["SELECT translation FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                      {:builder-fn rs/as-unqualified-lower-maps})
+       shuffle
+       (take 3)
+       (map :translation)))
+
 (defn update-word-stats
   [word-id correct?]
   (jdbc/execute! ds
