@@ -1,11 +1,12 @@
 (ns language_study.words
-      (:require
-        [language_study.database :as db]
-        [clojure.string :as str]
-        [language_study.ai :as ai]
-        [dk.ative.docjure.spreadsheet :as excel]
-        [language_study.validators :as validator]
-        [malli.core :as m]))
+  (:require
+    [language_study.database :as db]
+    [clojure.string :as str]
+    [language_study.ai :as ai]
+    [dk.ative.docjure.spreadsheet :as excel]
+    [language_study.validators :as validator])
+  (:import (java.time LocalDate)
+           (java.time.temporal ChronoUnit)))
 
 (defn success_rate [row]
   (if (zero? (:total_count row))
@@ -31,13 +32,12 @@
   (let [correct (:correct_answers row)
         total   (:total_count row)
         last-attend (:last_attend row)
-        now (System/currentTimeMillis)
-        interval (- now (.getTime last-attend))]
-    (let [base-weight (if (zero? total)
+        today (LocalDate/now)
+        days-since (.until last-attend today ChronoUnit/DAYS)
+        base-weight (if (zero? total)
                         1.0
-                        (- 1 (/ correct total)))
-          time-factor (/ interval (* 1000 60 60 24))]
-      (+ base-weight (* 0.1 time-factor)))))
+                        (- 1 (/ correct total)))]
+      (+ base-weight days-since)))
 
 (defn weighted-rand [items weight-fn]
   (loop [r (* (reduce + (map weight-fn items)) (rand))
@@ -62,14 +62,6 @@
     (excel/save-workbook! default-path wb)
     (println "Export finished. Saved as:" default-path)))
 
-(defn random-sentence-for-user [user-id]
-  (let [words (db/list-words-for-ai user-id)
-        sentence (ai/generate-sentence words)]
-    (println "Random words:" words)
-    (println "Generated sentence:" sentence)
-    sentence))
-
-
 (defn multiple-choice-exercise [user]
   (let [row (get-random-word (:id user))
         correct (:translation row)
@@ -89,7 +81,7 @@
 
     (print "Choose the correct word: ") (flush)
     (let [user-choice (Integer/parseInt (read-line))]
-      (if (m/validate validator/number-in-options user-choice )
+      (if (validator/valid-option num-of-options user-choice)
         (if (compare-words (nth options (dec user-choice)) correct)
                (do
                  (println "Correct!")
