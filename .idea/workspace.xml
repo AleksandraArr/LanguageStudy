@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="667f57da-85dc-4281-9586-f629d623b838" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/clj-kondo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/clj-kondo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/direction.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/intro.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/doc/intro.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/project.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/src/dot_bench/core.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dot-bench/test/dot_bench/core_test.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/export.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/language-study.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/ai.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/auth.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/core.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/database.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/from_classes.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/validators.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language_study/words.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/language_study/auth_test.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/language_study/words_test.clj" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Clojure Test Namespace" />
+        <option value="Clojure Namespace" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KondoLocalSettings">
+    <option name="lastHash">
+      <map>
+        <entry key="file://$PROJECT_DIR$/backend/project.clj" value="e3fc1733029738010fcecd76cb5bc001" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="36IjOK0GqCt9yPYoFZIhlhE317p" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Clojure REPL.REPL for language-study.executor&quot;: &quot;Run&quot;,
+    &quot;Clojure REPL.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cursive.last.file.extension.C\\:/Users/PC/Desktop/Fakultet/LanguageStudy/language-study/src&quot;: &quot;clj&quot;,
+    &quot;cursive.last.file.extension.C\\:/Users/PC/Desktop/Fakultet/LanguageStudy/language-study/test&quot;: &quot;clj&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/Desktop/Fakultet/LanguageStudy/language-study&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\Fakultet\LanguageStudy\language-study\frontend" />
+    </key>
+  </component>
+  <component name="ReplState" timestamp="1768503712690">{:repl-history {:ide [], :local [{:command &quot;(def s [1 2 3 4 5])\n(def s2 (map println s)) &quot;, :offset 45, :ns &quot;user&quot;} {:command &quot;(map println s)&quot;, :offset 15, :ns &quot;user&quot;} {:command &quot;(def sp (map println [1 2 3 4 5]))\n  (doall sp)&quot;, :offset 0, :ns &quot;user&quot;} {:command &quot;(defn report [A B] (time (multiply-matrices A B)))\n&quot;, :offset 51, :ns &quot;user&quot;} {:command &quot;(defn generate-matrix\n  [rows cols]\n  (mapv (fn [_] (mapv (fn [_] 1) (range cols)))\n        (range rows)))\n&quot;, :offset 107, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 100 100))&quot;, :offset 33, :ns &quot;user&quot;} {:command &quot;(def B (generate-matrix 100 100))&quot;, :offset 33, :ns &quot;user&quot;} {:command &quot;(defn report [A B]\n  (time (do (multiply-matrices A B))))\n&quot;, :offset 58, :ns &quot;user&quot;} {:command &quot;(report A B)&quot;, :offset 12, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 1000 1000))\n(def B (generate-matrix 1000 1000))\n\n(defn report [] (time (multiply-matrices A B)))&quot;, :offset 120, :ns &quot;user&quot;} {:command &quot;(defn dot-product [v1 v2]\n  (reduce + (map * v1 v2)))&quot;, :offset 0, :ns &quot;user&quot;} {:command &quot;(defn transpose [m] (apply map vector m))\n&quot;, :offset 42, :ns &quot;user&quot;} {:command &quot;(defn multiply-matrices [a b]\n  (mapv (fn [row]\n          (mapv (fn [col]\n                  (dot-product row col))\n                (transpose b)))\n        a))&quot;, :offset 158, :ns &quot;user&quot;} {:command &quot;(defn generate-matrix\n  [rows cols]\n  (mapv (fn [_] (mapv (fn [_] (+ 1 (rand-int 9))) (range cols)))\n        (range rows)))&quot;, :offset 123, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 1 1))\n(def B (generate-matrix 1 1))\n\n(defn report [] (time (multiply-matrices A B)))&quot;, :offset 0, :ns &quot;user&quot;} {:command &quot;(report)&quot;, :offset 8, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 10 10))\n(def B (generate-matrix 10 10))\n(report)&quot;, :offset 64, :ns &quot;user&quot;} {:command &quot;(defn report []\n  (time\n    (do\n      (multiply-matrices A B)\n      nil)))\n&quot;, :offset 75, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 100 100))\n(def B (generate-matrix 100 100))\n(report)&quot;, :offset 76, :ns &quot;user&quot;} {:command &quot;(def A (generate-matrix 1000 1000))\n(def B (generate-matrix 1000 1000))\n(report)&quot;, :offset 32, :ns &quot;user&quot;} {:command &quot;(mm)&quot;, :offset 4, :ns &quot;user&quot;} {:command &quot;(pop quiz)&quot;, :offset 10, :ns &quot;user&quot;} {:command &quot;(require 'uncomplicate/fluokitten)&quot;, :offset 33, :ns &quot;user&quot;} {:command &quot;(def x (dv 1 2 3))\n(def y (dv 10 20 30))\n(dot x y)&quot;, :offset 50, :ns &quot;user&quot;} {:command &quot;(def mika (atom {:name \&quot;Mika\&quot; :balance 60}))\n(def pera (atom {:name \&quot;Pera\&quot; :balance 100}))\n(defn calculate [user amount operation] (update user :balance operation amount))\n\n(defn transfer [amount from to]\n  [(when amount &gt;= from :balance\n                (swap! from calculate amount -)\n                (swap! to calculate amount +))])\n(transfer 10 pera mika)&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn transfer [from to amount])&quot;, :offset 32, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn transfer [from to amount]\n  (alter from calculate amount -)\n  (alter to calculate amount +))&quot;, :offset 98, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def mika (ref {:name \&quot;Mika\&quot; :balance 60}))\n(def pera (ref {:name \&quot;Pera\&quot; :balance 100}))&quot;, :offset 88, :ns &quot;matrix-operations.core&quot;} {:command &quot;(transfer 10 pera mika)\n&quot;, :offset 24, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn transfer [from to amount]\n  (dosync))&quot;, :offset 43, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn transfer [from to amount]\n  (dosync\n    (alter from calculate amount -)\n    (throw Exception)\n    (alter to calculate amount +)))&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn transfer [from to amount]\n  (dosync\n    (alter from calculate amount -)\n    (alter to calculate amount +)))&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  [{:keys [balance]}]\n  (or (&gt;= balance 0)\n      (throw (IllegalStateException \&quot;!!\&quot;))))&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(dosync defn transfer [from to amount]\n        (alter from calculate amount -)\n        (alter to calculate amount +))&quot;, :offset 38, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def mika (ref {:name \&quot;Mika\&quot; :balance 60 :validator balance-validator}))\n(def pera (ref {:name \&quot;Pera\&quot; :balance 100 :validator balance-validator}))&quot;, :offset 146, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  [{:keys [balance]}]\n  (or (&lt;= balance 0)\n      (throw (new IllegalStateException \&quot;!!\&quot;))))&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def mika (ref {:name \&quot;Mika\&quot; :balance 60 } balance-validator))\n(def pera (ref {:name \&quot;Pera\&quot; :balance 100 } balance-validator))\n&quot;, :offset 126, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  [{:keys [balance]}]\n  (or (&gt;= balance 0)\n      (throw (new IllegalStateException \&quot;!!\&quot;))))&quot;, :offset 115, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def mika (ref {:name \&quot;Mika\&quot; :balance 60 } :validator balance-validator))\n(def pera (ref {:name \&quot;Pera\&quot; :balance 100 } :validator balance-validator))\n&quot;, :offset 128, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  [{:keys [balance]}]\n  (comp pos? :balance))&quot;, :offset 69, :ns &quot;matrix-operations.core&quot;} {:command &quot;(transfer pera mika 1000)\n&quot;, :offset 26, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  (comp pos? :balance))&quot;, :offset 47, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn balance-validator\n  (comp partial &lt;= 0 :balance))&quot;, :offset 55, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn name-capital-validator\n  [{:keys [name]}]\n  (and (string? name)\n       (Character/isUpperCase (first name))))\n&quot;, :offset 115, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def mika (ref {:name \&quot;Mika\&quot; :balance 60 } :validator [balance-validator name-capital-validator] ))\n(def pera (ref {:name \&quot;Pera\&quot; :balance 100 } :validator balance-validator))\n&quot;, :offset 94, :ns &quot;matrix-operations.core&quot;} {:command &quot;(set-validator! pera name-capital-validator)&quot;, :offset 44, :ns &quot;matrix-operations.core&quot;} {:command &quot;pera&quot;, :offset 4, :ns &quot;matrix-operations.core&quot;} {:command &quot;(transfer pera mika 10)\n&quot;, :offset 22, :ns &quot;matrix-operations.core&quot;} {:command &quot;(transfer mika pera 10000)\n&quot;, :offset 26, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[malli.core :as m])\n\n(def non-empty-string\n  (m/schema [:string {:min 1}]))\n\n(m/schema? non-empty-string)\n;; =&gt; true\n\n(m/validate non-empty-string \&quot;\&quot;)\n;; =&gt; false\n\n(m/validate non-empty-string \&quot;kikka\&quot;)\n;; =&gt; true&quot;, :offset 222, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[next.jdbc :as jdbc])\n(require '[next.jdbc.result-set :as rs])\n(require '[language_study.database :refer [ds]])\n&quot;, :offset 122, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn login [username password]\n  (jdbc/execute! ds\n                 [\&quot;SELECT * FROM users WHERE username=? AND password=?\&quot; username password]\n                 {:builder-fn rs/as-unqualified-lower-maps}))&quot;, :offset 204, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn login [username password]\n  (first (jdbc/execute! ds\n                        [\&quot;SELECT * FROM users WHERE username=? AND password=?\&quot; username password]\n                        {:builder-fn rs/as-unqualified-lower-maps})))&quot;, :offset 224, :ns &quot;matrix-operations.core&quot;} {:command &quot;(login \&quot;adsad\&quot; \&quot;dsad\&quot;)&quot;, :offset 22, :ns &quot;matrix-operations.core&quot;} {:command &quot;(login \&quot;test\&quot; \&quot;test\&quot;)&quot;, :offset 21, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[malli.core :as m])\n&quot;, :offset 29, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def non-empty-string\n  (m/schema [:string {:min 1}]))&quot;, :offset 54, :ns &quot;matrix-operations.core&quot;} {:command &quot;(m/validate non-empty-string \&quot;rec\&quot;)&quot;, :offset 35, :ns &quot;matrix-operations.core&quot;} {:command &quot;(System/getenv \&quot;OPENAI_API_KEY\&quot;)&quot;, :offset 32, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language-study.gemini :as gemini])\n\n(gemini/gemini-generate\n  \&quot;Explain how AI works in a few words\&quot;)&quot;, :offset 111, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language-study.gemini :as gemini])\n&quot;, :offset 46, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language-study.ai :as gemini])\n&quot;, :offset 28, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language_study.ai :as gemini])\n&quot;, :offset 42, :ns &quot;matrix-operations.core&quot;} {:command &quot;(gemini/generate-sentence\n  \&quot;Explain how AI works in a few words\&quot;)&quot;, :offset 66, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language_study.words :as words])&quot;, :offset 43, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language_study.ai :as gemini])&quot;, :offset 41, :ns &quot;matrix-operations.core&quot;} {:command &quot;(gemini/check-translation \&quot;The cat chased the yellow mouse.\&quot; \&quot;Macka je jurila zutog misa.\&quot;)&quot;, :offset 91, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require '[language_study.database :as db])&quot;, :offset 43, :ns &quot;matrix-operations.core&quot;} {:command &quot;(vec (\&quot;voda\&quot; \&quot;desk\&quot; \&quot;olovka\&quot;))&quot;, :offset 30, :ns &quot;matrix-operations.core&quot;} {:command &quot;(vec (db/list-words-for-ai 2))&quot;, :offset 30, :ns &quot;matrix-operations.core&quot;} {:command &quot;(gemini/generate-sentence\n  [\&quot;cat\&quot;, \&quot;yellow\&quot;, \&quot;mouse\&quot;])&quot;, :offset 55, :ns &quot;matrix-operations.core&quot;} {:command &quot;(gemini/generate-sentence\n  [\&quot;cat\&quot; \&quot;yellow\&quot; \&quot;mouse\&quot;])&quot;, :offset 53, :ns &quot;matrix-operations.core&quot;} {:command &quot;(db/list-words-for-ai 2)&quot;, :offset 23, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn number-in-options [num-of-options user-input]\n  (and (integer? user-input)\n       (&lt;= 1 user-input num-of-options)))&quot;, :offset 122, :ns &quot;matrix-operations.core&quot;} {:command &quot;(number-in-options 5 1)&quot;, :offset 23, :ns &quot;matrix-operations.core&quot;} {:command &quot;(number-in-options 5 7)&quot;, :offset 23, :ns &quot;matrix-operations.core&quot;} {:command &quot;(number-in-options 5 5)&quot;, :offset 23, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn weight-of-word [row]\n  (let [correct (:correct_answers row)\n        total   (:total_count row)\n        last-attend (:last_attend row)\n        now (System/currentTimeMillis)\n        interval (- now (.getTime last-attend))]\n    (let [base-weight (if (zero? total)\n                        1.0\n                        (- 1 (/ correct total)))\n          time-factor (/ interval (* 1000 60 60 24))]\n      (+ base-weight (* 0.1 time-factor)))))&quot;, :offset 443, :ns &quot;matrix-operations.core&quot;} {:command &quot;(words/weight-of-word\n  {:correct_answers 0\n   :total_count 0\n   :last_attend (Date. 0)})&quot;, :offset 89, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word\n  {:correct_answers 0\n   :total_count 0\n   :last_attend (Date. 0)})&quot;, :offset 37, :ns &quot;matrix-operations.core&quot;} {:command &quot;(def fixed-now 1700000000000)\n\n(defn random-date []\n  (Date. (- fixed-now (rand-int (* 1000 60 60 24 30)))))\n&quot;, :offset 108, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word\n  {:correct_answers 0\n   :total_count 0\n   :last_attend (random-date)})&quot;, :offset 36, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                 :total_count 7\n                 :last_attend (java.util.Date. 2025 12 28 0 0 0)})&quot;, :offset 0, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                 :total_count 7\n                 :last_attend (java.util.Date. 125 11 28 0 0 0)})&quot;, :offset 133, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 7\n                 :total_count 7\n                 :last_attend (Date.)}) &quot;, :offset 108, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 0\n                 :total_count 0\n                 :last_attend (Date.)}) &quot;, :offset 67, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 0\n                 :total_count 1\n                 :last_attend (\&quot;2025-12-28 18:41:59.603689+01\&quot;)}) &quot;, :offset 67, :ns &quot;matrix-operations.core&quot;} {:command &quot;(import java.time)&quot;, :offset 18, :ns &quot;matrix-operations.core&quot;} {:command &quot;(import java.time.LocalDate)&quot;, :offset 28, :ns &quot;matrix-operations.core&quot;} {:command &quot;(defn weight-of-word [row]\n  (let [correct (:correct_answers row)\n        total   (:total_count row)\n        last-attend (:last_attend row)\n        today (LocalDate/now)\n        days-since (.until last-attend today ChronoUnit/DAYS)\n        base-weight (if (zero? total)\n                      1.0\n                      (- 1 (/ correct total)))]\n    (+ base-weight days-since)))&quot;, :offset 376, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 0\n                       :total_count 0\n                       :last_attend (java.time.LocalDate/now)})&quot;, :offset 1, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 7\n                       :total_count 7\n                       :last_attend (LocalDate/now)})&quot;, :offset 127, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                       :total_count 7\n                       :last_attend (LocalDate/now)})&quot;, :offset 127, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                       :total_count 7\n                       :last_attend (.minusDays (LocalDate/now) 1)})&quot;, :offset 35, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                       :total_count 7\n                       :last_attend (.minusDays (LocalDate/now) 10)})&quot;, :offset 1, :ns &quot;matrix-operations.core&quot;} {:command &quot;(words/weight-of-word {:correct_answers 5\n                       :total_count 5\n                       :last_attend (.minusDays (LocalDate/now) 100)})&quot;, :offset 150, :ns &quot;matrix-operations.core&quot;} {:command &quot;(weight-of-word {:correct_answers 5\n                       :total_count 5\n                       :last_attend (.minusDays (LocalDate/now) 100)})&quot;, :offset 1, :ns &quot;matrix-operations.core&quot;} {:command &quot;(ai/generate-sentence [\&quot;cat\&quot; \&quot;sleep\&quot; \&quot;sofa\&quot;])\n&quot;, :offset 46, :ns &quot;matrix-operations.core&quot;} {:command &quot;(require 'language_study.ai)\n&quot;, :offset 29, :ns &quot;matrix-operations.core&quot;} {:command &quot;(language_study.ai/generate-sentence [\&quot;cat\&quot; \&quot;sleep\&quot; \&quot;sofa\&quot;])\n&quot;, :offset 60, :ns &quot;matrix-operations.core&quot;}], :remote []}}</component>
+  <component name="RunManager">
+    <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="bbPath" value="" />
+      <setting name="parameters" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <setting name="workingDir" value="" />
+      <setting name="focusEditor" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="REPL for language-study" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false" temporary="true">
+      <option name="configVersion" value="1" />
+      <option name="displayName" value="REPL for language-study" />
+      <option name="execution" value="LEININGEN" />
+      <module name="language-study" />
+      <option name="options" />
+      <option name="profiles" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <option name="configVersion" value="1" />
+      <option name="options" />
+      <option name="profiles" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <setting name="useHeartbeat" value="true" />
+      <setting name="focusEditor" value="false" />
+      <setting name="urlFile" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Clojure REPL.REPL for language-study" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="667f57da-85dc-4281-9586-f629d623b838" name="Changes" comment="" />
+      <created>1764700945691</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764700945691</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

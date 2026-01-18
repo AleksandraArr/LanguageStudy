@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: net.clojars.wkok/openai-clojure:0.23.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/clojars/wkok/openai-clojure/0.23.0/openai-clojure-0.23.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
