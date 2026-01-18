@@ -8,6 +8,19 @@
   (:import (java.time LocalDate)
            (java.time.temporal ChronoUnit)))
 
+(defn add-word [user-id word translation cat-id]
+  (try
+    (db/add-word! user-id word translation cat-id)
+    (println "Word added successfully!")
+    (catch Exception e
+      (println "Error adding word:" (.getMessage e)))))
+
+(defn get-words [user-id]
+  (db/get-words user-id))
+
+(defn categories-of-user [user-id]
+  (db/categories-of-user user-id))
+
 (defn success_rate [row]
   (if (zero? (:total_count row))
     0
@@ -47,13 +60,13 @@
       (recur (- r (weight-fn (first items))) (rest items)))))
 
 (defn get-random-word [user-id]
-  (let [rows (db/list-words user-id)]
+  (let [rows (db/get-words user-id)]
     (weighted-rand rows weight-of-word)))
 
 (def default-path "reports/export.xlsx")
 
 (defn export-xlsx! [user-id]
-  (let [words (db/list-words user-id)
+  (let [words (db/get-words user-id)
         wb (excel/create-workbook
              "Words"
              (concat
@@ -67,7 +80,7 @@
         correct (:translation row)
         word (:word row)
         id (:id row)
-        other-words (->> (db/list-words (:id user))
+        other-words (->> (db/get-words (:id user))
                          (remove #(= (:translation %) correct))
                          (map :translation)
                          shuffle

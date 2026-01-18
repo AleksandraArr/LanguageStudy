@@ -33,9 +33,9 @@
                  ["SELECT id, name FROM word_categories WHERE user_id=? ORDER BY id" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
-(defn list-words [user-id]
+(defn get-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                 ["SELECT id, word, translation FROM words WHERE user_id=? ORDER BY created_at" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn list-words-for-ai [user-id]

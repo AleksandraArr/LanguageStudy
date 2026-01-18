@@ -3,7 +3,8 @@
                                   [language_study.database :as db]
                                   [language_study.validators :as validator]
                                   [language_study.words :as words]
-                                  [malli.core :as m]))
+                                  [malli.core :as m]
+                                  [language_study.api :refer [api-routes]]))
 
 (defn words-menu [user]
   (loop []

@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+:root {
+    --light: #F9F9F9;
+    --blue: #3C91E6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark: #342E37;
+    --orange: #FD7238;
+    --light-orange: #FFE0D3;
+}
+
+body {
+    background: var(--grey);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* TABLE CONTAINER */
+.table-data {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin: 24px;
+    width: 100%;
+    color: var(--dark);
+}
+
+.table-data > .order {
+    flex-grow: 1;
+    flex-basis: 500px;
+    border-radius: 20px;
+    background: var(--light);
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.table-data .order .head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.table-data .order .head h3 {
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.table-data .order table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-data .order table th {
+    padding-bottom: 12px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+
+.table-data .order table td {
+    padding: 16px 0;
+}
+
+.table-data .order table tr td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 6px;
+}
+
+.table-data .order table tbody tr:hover {
+    background: var(--grey);
+}
+
+/* OPTIONAL STATUS / ACTION STYLING */
+.table-data .order table tr td .status {
+    font-size: 10px;
+    padding: 6px 16px;
+    color: var(--light);
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.table-data .order table tr td button.edit {
+    padding: 6px 12px;
+    font-size: 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--blue);
+    color: #fff;
+    cursor: pointer;
+}
+.table-data .order table tr td button.edit:hover {
+    background-color: var(--light-blue);
+    color: var(--dark);
+}
+
+@media screen and (max-width: 768px) {
+    .table-data > .order {
+        flex-basis: 100%;
+    }
+}
