@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './dashboard.css';
+import SideMenu from "./components/SideMenu";
+
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,101 +75,111 @@ const handleAddWord = async (e) => {
   if (loading) return <div>Loading words...</div>;
 
  return (
-   <div style={{ padding: 20 }}>
-     <h1>Dashboard</h1>
+    <div className="dashboard-wrapper">
+      <SideMenu />
 
-     <button
-       style={{
-         marginBottom: 16,
-         padding: "8px 16px",
-         backgroundColor: "#3C91E6",
-         color: "#fff",
-         borderRadius: 8,
-         cursor: "pointer",
-       }}
-       onClick={() => setShowForm((prev) => !prev)}
-     >
-       Add Word
-     </button>
+      <div className="dashboard-content">
+        <h1>Dashboard</h1>
 
-     {showForm && (
-       <form onSubmit={handleAddWord} style={{ marginBottom: 24 }}>
-         <input
-           type="text"
-           placeholder="Word"
-           value={newWord.word}
-           onChange={(e) => setNewWord({ ...newWord, word: e.target.value })}
-           required
-           style={{ marginRight: 8 }}
-         />
-         <input
-           type="text"
-           placeholder="Translation"
-           value={newWord.translation}
-           onChange={(e) => setNewWord({ ...newWord, translation: e.target.value })}
-           required
-           style={{ marginRight: 8 }}
-         />
-       <select
-           value={selectedCategory}
-           onChange={(e) => setSelectedCategory(e.target.value)}
-           style={{ marginRight: 8 }}
-         >
-           {categories.map((cat) => (
-             <option key={cat.id} value={cat.id}>
-               {cat.name}
-             </option>
-           ))}
-         </select>
-         <button
-           type="submit"
-           style={{
-             padding: "4px 12px",
-             backgroundColor: "#3C91E6",
-             color: "#fff",
-             borderRadius: 4,
-             cursor: "pointer",
-           }}
-         >
-           Save
-         </button>
-       </form>
-     )}
+        <button
+          style={{
+            marginBottom: 16,
+            padding: "8px 16px",
+            backgroundColor: "#3C91E6",
+            color: "#fff",
+            borderRadius: 8,
+            cursor: "pointer",
+          }}
+          onClick={() => setShowForm((prev) => !prev)}
+        >
+          Add Word
+        </button>
 
-     <div className="table-data">
-       <div className="order">
-         <div className="head">
-           <h3>Your Words</h3>
-         </div>
-         <table>
-           <thead>
-             <tr>
-               <th>Word</th>
-               <th>Translation</th>
-               <th>Action</th>
-             </tr>
-           </thead>
-           <tbody>
-             {words.length === 0 ? (
-               <tr>
-                 <td colSpan={3}>No words found.</td>
-               </tr>
-             ) : (
-               words.map((word) => (
-                 <tr key={word.id}>
-                   <td>{word.word}</td>
-                   <td>{word.translation}</td>
-                   <td>
-                     <button className="edit">Edit</button>
-                   </td>
-                 </tr>
-               ))
-             )}
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
- );
+        {showForm && (
+          <form onSubmit={handleAddWord} style={{ marginBottom: 24 }}>
+            <input
+              type="text"
+              placeholder="Word"
+              value={newWord.word}
+              onChange={(e) =>
+                setNewWord({ ...newWord, word: e.target.value })
+              }
+              required
+              style={{ marginRight: 8 }}
+            />
+            <input
+              type="text"
+              placeholder="Translation"
+              value={newWord.translation}
+              onChange={(e) =>
+                setNewWord({ ...newWord, translation: e.target.value })
+              }
+              required
+              style={{ marginRight: 8 }}
+            />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              style={{ marginRight: 8 }}
+            >
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="submit"
+              style={{
+                padding: "4px 12px",
+                backgroundColor: "#3C91E6",
+                color: "#fff",
+                borderRadius: 4,
+                cursor: "pointer",
+              }}
+            >
+              Save
+            </button>
+          </form>
+        )}
+
+        <div className="table-data">
+          <div className="order">
+            <div className="head">
+              <h3>Your Words</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Word</th>
+                  <th>Translation</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {words.length === 0 ? (
+                  <tr>
+                    <td colSpan={3}>No words found.</td>
+                  </tr>
+                ) : (
+                  words.map((word) => (
+                    <tr key={word.id}>
+                      <td>{word.word}</td>
+                      <td>{word.translation}</td>
+                      <td>
+                        <button className="edit">Edit</button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
 
 }

@@ -97,6 +97,19 @@ body {
     color: var(--dark);
 }
 
+.dashboard-wrapper {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+}
+
+.dashboard-content {
+  padding: 20px;
+  overflow-y: auto;
+  background: #ebecee;
+}
+
+
 @media screen and (max-width: 768px) {
     .table-data > .order {
         flex-basis: 100%;

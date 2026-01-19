@@ -1,0 +1,81 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+}
+
+.site-nav {
+  background: #0b121b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-nav ul {
+  margin-bottom: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav li a {
+  display: block;
+  padding: 0.75rem 0.5rem 0.75rem 2rem;
+}
+
+.site-nav li a:hover {
+  color: #4371c5;
+}
+
+.site-nav li.active > a {
+  background: linear-gradient(to right, #101b2d, transparent);
+  position: relative;
+}
+
+.site-nav li.active > a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: #4676cd;
+}
+
+.site-nav ul ul {
+  padding-left: 1rem;
+}
+
+.name {
+  font-size: 1.3rem;
+  margin: 2rem;
+  position: relative;
+}
+
+.name svg {
+  position: absolute;
+  right: 0;
+  top: 7px;
+  width: 16px;
+  height: 16px;
+  fill: white;
+}
+
+.note {
+  margin: 1.5rem;
+  padding: 1rem;
+  background: #171c26;
+  border-radius: 10px;
+}
+
+main {
+  background: #ebecee;
+}
+
+.app-header {
+  padding: 2rem;
+}
