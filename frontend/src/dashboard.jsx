@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
-import './dashboard.css';
+import "./dashboard.css";
 import SideMenu from "./components/SideMenu";
+import Modal from "./components/modal";
+import AddWordForm from "./components/addWordForm";
+import Button from "./components/button";
 
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [showForm, setShowForm] = useState(false);
-    const [newWord, setNewWord] = useState({ word: "", translation: "", catId: "" });
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [newWord, setNewWord] = useState({
+    word: "",
+    translation: "",
+    catId: "",
+  });
 
   useEffect(() => {
     if (!userId) return;
@@ -26,14 +33,14 @@ export default function Dashboard({ userId }) {
       .finally(() => setLoading(false));
   }, [userId]);
 
- useEffect(() => {
+  useEffect(() => {
     if (!userId) return;
 
     fetch(`http://localhost:3000/api/categories?user-id=${userId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          setCategories(data.categories); // [{id:1, name:"X"}, ...]
+          setCategories(data.categories);
           if (data.categories.length > 0) {
             setSelectedCategory(data.categories[0].id);
           }
@@ -42,8 +49,7 @@ export default function Dashboard({ userId }) {
       .catch((err) => console.error(err));
   }, [userId]);
 
-
-const handleAddWord = async (e) => {
+  const handleAddWord = async (e) => {
     e.preventDefault();
 
     try {
@@ -52,8 +58,8 @@ const handleAddWord = async (e) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           "user-id": userId,
-          "word": newWord.word,
-          "translation": newWord.translation,
+          word: newWord.word,
+          translation: newWord.translation,
           "cat-id": Number(selectedCategory),
         }),
       });
@@ -71,78 +77,27 @@ const handleAddWord = async (e) => {
     }
   };
 
-
   if (loading) return <div>Loading words...</div>;
 
- return (
+  return (
     <div className="dashboard-wrapper">
       <SideMenu />
 
       <div className="dashboard-content">
         <h1>Dashboard</h1>
 
-        <button
-          style={{
-            marginBottom: 16,
-            padding: "8px 16px",
-            backgroundColor: "#3C91E6",
-            color: "#fff",
-            borderRadius: 8,
-            cursor: "pointer",
-          }}
-          onClick={() => setShowForm((prev) => !prev)}
-        >
-          Add Word
-        </button>
+        <Button text="Add word" onClick={() => setShowForm(true)}></Button>
 
-        {showForm && (
-          <form onSubmit={handleAddWord} style={{ marginBottom: 24 }}>
-            <input
-              type="text"
-              placeholder="Word"
-              value={newWord.word}
-              onChange={(e) =>
-                setNewWord({ ...newWord, word: e.target.value })
-              }
-              required
-              style={{ marginRight: 8 }}
-            />
-            <input
-              type="text"
-              placeholder="Translation"
-              value={newWord.translation}
-              onChange={(e) =>
-                setNewWord({ ...newWord, translation: e.target.value })
-              }
-              required
-              style={{ marginRight: 8 }}
-            />
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              style={{ marginRight: 8 }}
-            >
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-
-            <button
-              type="submit"
-              style={{
-                padding: "4px 12px",
-                backgroundColor: "#3C91E6",
-                color: "#fff",
-                borderRadius: 4,
-                cursor: "pointer",
-              }}
-            >
-              Save
-            </button>
-          </form>
-        )}
+        <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
+          <AddWordForm
+            newWord={newWord}
+            setNewWord={setNewWord}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            onSubmit={handleAddWord}
+          />
+        </Modal>
 
         <div className="table-data">
           <div className="order">
@@ -180,6 +135,4 @@ const handleAddWord = async (e) => {
       </div>
     </div>
   );
-
-
 }

@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Dashboard from "./Dashboard";
+import Categories from "./categories";
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+
+    if (storedUserId) {
+      setUser({ id: Number(storedUserId) });
+    }
+  }, []);
 
   const handleLogin = async () => {
     if (!username || !password) {
@@ -26,6 +36,7 @@ function App() {
       if (res.ok && data.success) {
         setUser(data.user);
         setMessage("");
+        localStorage.setItem("userId", data.user.id);
       } else {
         setMessage(data.message || "Error while logging in");
       }
@@ -35,36 +46,42 @@ function App() {
     }
   };
 
-  if (user) {
-    return <Dashboard userId={user.id} />;
+  if (!user) {
+    return (
+      <div style={styles.container}>
+        <h1>Login</h1>
+
+        <input
+          style={styles.input}
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <input
+          style={styles.input}
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button style={styles.button} onClick={handleLogin}>
+          Login
+        </button>
+
+        {message && <p style={styles.message}>{message}</p>}
+      </div>
+    );
   }
-
   return (
-    <div style={styles.container}>
-      <h1>Login</h1>
-
-      <input
-        style={styles.input}
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-
-      <input
-        style={styles.input}
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button style={styles.button} onClick={handleLogin}>
-        Login
-      </button>
-
-      {message && <p style={styles.message}>{message}</p>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard userId={user.id} />} />
+        <Route path="/categories" element={<Categories userId={user.id} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

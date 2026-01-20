@@ -1,0 +1,40 @@
+.button {
+  align-items: center;
+  background-color: #0a66c2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family:
+    -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 16px !important;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  min-height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  transition:
+    background-color 0.167s ease,
+    box-shadow 0.167s ease,
+    color 0.167s ease;
+  user-select: none;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #16437e;
+}
+
+.button:active {
+  background-color: #09223b;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.3);
+}
