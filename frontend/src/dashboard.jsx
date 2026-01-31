@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./dashboard.css";
-import SideMenu from "./components/SideMenu";
 import Modal from "./components/modal";
 import AddWordForm from "./components/addWordForm";
 import Button from "./components/button";
@@ -80,14 +79,9 @@ export default function Dashboard({ userId }) {
   if (loading) return <div>Loading words...</div>;
 
   return (
-    <div className="dashboard-wrapper">
-      <SideMenu />
-
-      <div className="dashboard-content">
+    <div>
+      <div>
         <h1>Dashboard</h1>
-
-        <Button text="Add word" onClick={() => setShowForm(true)}></Button>
-
         <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
           <AddWordForm
             newWord={newWord}
@@ -103,6 +97,10 @@ export default function Dashboard({ userId }) {
           <div className="order">
             <div className="head">
               <h3>Your Words</h3>
+              <Button
+                text="Add word"
+                onClick={() => setShowForm(true)}
+              ></Button>
             </div>
             <table>
               <thead>

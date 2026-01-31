@@ -1,6 +1,6 @@
 import Button from "./button";
 import React from "react";
-import "./AddWordForm.css";
+import "./form.css";
 
 export default function AddWordForm({
   newWord,

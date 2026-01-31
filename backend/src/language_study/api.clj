@@ -49,7 +49,16 @@
                   :body {:success false
                          :message (.getMessage e)}})))
 
-
+           (POST "/api/categories" request
+             (let [{:keys [user-id name]} (:body request)]
+               (try
+                 (words/add-category user-id name)
+                 {:status 200
+                  :body {:success true}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
 
            (route/not-found {:success false :message "Not found"}))
 

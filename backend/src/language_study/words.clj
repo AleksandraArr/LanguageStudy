@@ -21,6 +21,9 @@
 (defn categories-of-user [user-id]
   (db/categories-of-user user-id))
 
+(defn add-category [user-id name]
+  (db/add-category! user-id name))
+
 (defn success_rate [row]
   (if (zero? (:total_count row))
     0
@@ -75,34 +78,19 @@
     (excel/save-workbook! default-path wb)
     (println "Export finished. Saved as:" default-path)))
 
-(defn multiple-choice-exercise [user]
-  (let [row (get-random-word (:id user))
+(defn generate-multiple-choice [user-id]
+  (let [row (get-random-word user-id)
         correct (:translation row)
-        word (:word row)
-        id (:id row)
-        other-words (->> (db/get-words (:id user))
+        other-words (->> (db/get-words user-id)
                          (remove #(= (:translation %) correct))
                          (map :translation)
                          shuffle
                          (take 4))
-        options (shuffle (conj other-words correct))
-        num-of-options (count options)]
-
-    (println "\nTranslation:" word)
-    (doseq [[i opt] (map-indexed vector options)]
-      (println (inc i) ")" opt))
-
-    (print "Choose the correct word: ") (flush)
-    (let [user-choice (Integer/parseInt (read-line))]
-      (if (validator/valid-option num-of-options user-choice)
-        (if (compare-words (nth options (dec user-choice)) correct)
-               (do
-                 (println "Correct!")
-                 (db/update-word-stats id true))
-               (do
-                 (println "Wrong! Correct answer is:" correct)
-                 (db/update-word-stats id false)))
-        (println "Your choice doesn't exist.")))))
+        options (shuffle (conj other-words correct))]
+    {:word (:word row)
+     :options options
+     :correct correct
+     :word-id (:id row)}))
 
 (defn translate-word-exercise [user]
   (let [row (get-random-word (:id user))]

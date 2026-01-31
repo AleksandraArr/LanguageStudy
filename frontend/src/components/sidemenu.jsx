@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./sidemenu.css";
 
-export default function SideMenu() {
+export default function SideMenu({ setUser }) {
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    setUser(null);
+    navigate("/login");
+  };
+
   return (
     <nav className="site-nav">
       <ul>
-        <li className="active">
-          <a href="#">Exercises</a>
-          <ul>
-            <li>
-              <a href="#">Translate words</a>
-            </li>
-            <li>
-              <a href="#">Multiple choice</a>
-            </li>
-            <li>
-              <a href="#">Translate the sentence</a>
-            </li>
-          </ul>
+        <li>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </li>
+        <li>
+          <NavLink to="/exercises">Exercises</NavLink>
         </li>
 
         <li>
-          <Link to="/categories">Categories</Link>
+          <NavLink to="/categories">Categories</NavLink>
+        </li>
+        <li>
+          <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
     </nav>
