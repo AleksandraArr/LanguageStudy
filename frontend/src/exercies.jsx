@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "./components/button";
+import TranslateWord from "./components/translateWord";
 
-export default function Exercises() {
+export default function Exercises({ userId }) {
   const [type, setType] = useState(null);
 
   return (
@@ -24,7 +25,7 @@ export default function Exercises() {
       </div>
 
       <div className="exercise-content">
-        {type === "translate" && <TranslateWord />}
+        {type === "translate" && <TranslateWord userId={userId} />}
         {type === "choice" && <MultipleChoice />}
         {type === "sentence" && <TranslateSentence />}
       </div>

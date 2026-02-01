@@ -5,8 +5,7 @@ import Dashboard from "./dashboard";
 import Categories from "./categories";
 import Login from "./login";
 import Exercises from "./exercies";
-import SideMenu from "./components/SideMenu";
-
+import SideMenu from "./components/sidemenu";
 function App() {
   const [user, setUser] = useState(null);
 

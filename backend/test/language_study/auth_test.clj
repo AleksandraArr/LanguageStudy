@@ -4,6 +4,15 @@
             [next.jdbc.result-set :as rs]
             [next.jdbc :as jdbc]))
 
+(def db-spec
+  {:dbtype "postgresql"
+   :dbname "LanguageStudy"
+   :host "localhost"
+   :port 5432
+   :user "postgres"})
+
+(def ds (jdbc/get-datasource db-spec))
+
 (facts "about auth/login"
 
        (fact "returns user when credentials are correct"

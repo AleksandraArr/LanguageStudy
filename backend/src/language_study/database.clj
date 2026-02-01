@@ -35,7 +35,7 @@
 
 (defn get-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT id, word, translation FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn list-words-for-ai [user-id]
@@ -45,6 +45,15 @@
        shuffle
        (take 3)
        (map :translation)))
+
+(defn get-word-by-id [word-id]
+  (first
+    (jdbc/execute! ds
+                   ["SELECT id, translation
+                    FROM words
+                    WHERE id = ?" word-id]
+                   {:builder-fn rs/as-unqualified-lower-maps})))
+
 
 (defn update-word-stats
   [word-id correct?]

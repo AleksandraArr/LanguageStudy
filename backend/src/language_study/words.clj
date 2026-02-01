@@ -3,8 +3,7 @@
     [language_study.database :as db]
     [clojure.string :as str]
     [language_study.ai :as ai]
-    [dk.ative.docjure.spreadsheet :as excel]
-    [language_study.validators :as validator])
+    [dk.ative.docjure.spreadsheet :as excel])
   (:import (java.time LocalDate)
            (java.time.temporal ChronoUnit)))
 
@@ -47,7 +46,8 @@
 (defn weight-of-word [row]
   (let [correct (:correct_answers row)
         total   (:total_count row)
-        last-attend (:last_attend row)
+        last-attend (-> (:last_attend row)
+                        (.toLocalDate))
         today (LocalDate/now)
         days-since (.until last-attend today ChronoUnit/DAYS)
         base-weight (if (zero? total)
@@ -58,6 +58,7 @@
 (defn weighted-rand [items weight-fn]
   (loop [r (* (reduce + (map weight-fn items)) (rand))
          items items]
+
     (if (<= r (weight-fn (first items)))
       (first items)
       (recur (- r (weight-fn (first items))) (rest items)))))
@@ -92,19 +93,20 @@
      :correct correct
      :word-id (:id row)}))
 
-(defn translate-word-exercise [user]
-  (let [row (get-random-word (:id user))]
-    (when row
-      (println "Word:" (:word row))
-      (print "Your translation: ") (flush)
-      (let [user-answer (read-line)]
-        (if (compare-words user-answer (:translation row))
-          (do
-            (println "Correct!")
-            (db/update-word-stats (:id row) true))
-          (do
-            (println "Wrong! Correct translation is:" (:translation row))
-            (db/update-word-stats (:id row) false)))))))
+(defn get-translate-word [user-id]
+  (when-let [row (get-random-word user-id)]
+    (println row)
+    {:word-id (:id row)
+     :word (:word row)}))
+
+(defn check-translate-word [word-id user-answer]
+  (let [row (db/get-word-by-id word-id)
+        correct (:translation row)
+        correct? (compare-words user-answer correct)]
+    (db/update-word-stats word-id correct?)
+    {:correct correct?
+     :correct-answer correct}))
+
 
 (defn translate-sentence-exercise [id]
   (let [words (vec (db/list-words-for-ai id))

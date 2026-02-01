@@ -60,17 +60,35 @@
                     :body {:success false
                            :message (.getMessage e)}}))))
 
+           (POST "/api/exercise/translate" request
+             (let [{:keys [user-id]} (:body request)]
+               (if-let [exercise (words/get-translate-word user-id)]
+                 {:status 200
+                  :body {:success true
+                         :data exercise}}
+                 {:status 200
+                  :body {:success false
+                         :message "No words found"}})))
+
+
+           (POST "/api/exercise/translate/check" request
+             (let [{:keys [word-id answer]} (:body request)]
+               {:status 200
+                :body {:success true
+                       :data (words/check-translate-word word-id answer)}}))
+
+
            (route/not-found {:success false :message "Not found"}))
 
 (def app
   (-> api-routes
-      wrap-params
-      (wrap-json-body {:keywords? true :allow-empty-body? true})
-      wrap-json-response
       (wrap-cors
         :access-control-allow-origin [#"http://localhost:5173"]
-        :access-control-allow-methods [:get :post :put :delete]
-        :access-control-allow-headers ["Content-Type"])))
+        :access-control-allow-methods [:get :post :put :delete :options]
+        :access-control-allow-headers ["Content-Type"])
+      wrap-params
+      (wrap-json-body {:keywords? true :allow-empty-body? true})
+      wrap-json-response))
 
 (defn -main []
   (run-jetty app {:port 3000 :join? false}))

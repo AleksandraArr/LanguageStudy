@@ -133,6 +133,3 @@
 (def mika (ref {:name "Mika" :balance 60 } :validator balance-validator))
 (def pera (ref {:name "Pera" :balance 100 } :validator balance-validator))
 
-(dosync defn transfer [from to amount]
-        (alter from calculate amount -)
-        (alter to calculate amount +))
