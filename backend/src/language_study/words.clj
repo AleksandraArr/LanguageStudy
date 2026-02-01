@@ -90,7 +90,6 @@
         options (shuffle (conj other-words correct))]
     {:word (:word row)
      :options options
-     :correct correct
      :word-id (:id row)}))
 
 (defn get-translate-word [user-id]

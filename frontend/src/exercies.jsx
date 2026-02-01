@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./components/button";
 import TranslateWord from "./components/translateWord";
+import MultipleChoice from "./components/multipleChoice";
 
 export default function Exercises({ userId }) {
   const [type, setType] = useState(null);
@@ -26,8 +27,8 @@ export default function Exercises({ userId }) {
 
       <div className="exercise-content">
         {type === "translate" && <TranslateWord userId={userId} />}
-        {type === "choice" && <MultipleChoice />}
-        {type === "sentence" && <TranslateSentence />}
+        {type === "choice" && <MultipleChoice userId={userId} />}
+        {type === "sentence" && <TranslateSentence userId={userId} />}
       </div>
     </div>
   );

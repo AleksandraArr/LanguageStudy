@@ -77,6 +77,12 @@
                 :body {:success true
                        :data (words/check-translate-word word-id answer)}}))
 
+           (POST "/api/exercise/multiple-choice"
+                 request
+             (let [{:keys [user-id]} (:body request)]
+               {:status 200
+                :body {:success true
+                       :data (words/generate-multiple-choice user-id)}}))
 
            (route/not-found {:success false :message "Not found"}))
 
