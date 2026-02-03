@@ -67,17 +67,24 @@
   (let [rows (db/get-words user-id)]
     (weighted-rand rows weight-of-word)))
 
-(def default-path "reports/export.xlsx")
+(defn map-words-for-xlsx
+  [words]
+  (map (fn [m]
+         [(:word m)
+          (:translation m)
+          (:correct_answers m)
+          (:total_count m)])
+       words))
 
-(defn export-xlsx! [user-id]
+(defn export-xlsx! [user-id file-name]
   (let [words (db/get-words user-id)
         wb (excel/create-workbook
              "Words"
              (concat
                [["word" "translation" "success" "total"]]
-               words))]
-    (excel/save-workbook! default-path wb)
-    (println "Export finished. Saved as:" default-path)))
+               (map-words-for-xlsx words)))]
+    (println words)
+    (excel/save-workbook! (str "report/" (str file-name ".xlsx")) wb)))
 
 (defn generate-multiple-choice [user-id]
   (let [row (get-random-word user-id)

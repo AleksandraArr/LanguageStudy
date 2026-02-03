@@ -24,7 +24,6 @@
                          :message "Invalid username or password"}})))
 
            (GET "/api/words" request
-             (println (first (vals (:params request))))
              {:status 200
               :body {:success true
                      :words (words/get-words (Integer/parseInt (first (vals (:params request)))) )}})
@@ -84,7 +83,20 @@
                 :body {:success true
                        :data (words/generate-multiple-choice user-id)}}))
 
+           (POST "/api/export-xlsx" request
+             (let [{:keys [user-id file-name]} (:body request)]
+               (try
+                 (words/export-xlsx! user-id file-name)
+                 {:status 200
+                  :body {:success true}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
+
            (route/not-found {:success false :message "Not found"}))
+
+
 
 (def app
   (-> api-routes

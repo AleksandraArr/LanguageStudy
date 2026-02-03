@@ -3,6 +3,7 @@ import "./dashboard.css";
 import Modal from "./components/modal";
 import AddWordForm from "./components/addWordForm";
 import Button from "./components/button";
+import ExportTxtForm from "./components/exportTxtForm";
 
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
@@ -10,6 +11,9 @@ export default function Dashboard({ userId }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [showFormExport, setShowFormExport] = useState(false);
+
   const [newWord, setNewWord] = useState({
     word: "",
     translation: "",
@@ -76,6 +80,24 @@ export default function Dashboard({ userId }) {
     }
   };
 
+  const handleExportTxt = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log(fileName);
+      const res = await fetch("http://localhost:3000/api/export-xlsx", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "user-id": userId,
+          "file-name": fileName,
+        }),
+      });
+    } catch (err) {
+      console.error("Error exporting to txt", err);
+    }
+  };
+
   if (loading) return <div>Loading words...</div>;
 
   return (
@@ -90,6 +112,13 @@ export default function Dashboard({ userId }) {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             onSubmit={handleAddWord}
+          />
+        </Modal>
+        <Modal isOpen={showFormExport} onClose={() => setShowFormExport(false)}>
+          <ExportTxtForm
+            fileName={fileName}
+            setFileName={setFileName}
+            onSubmit={handleExportTxt}
           />
         </Modal>
 
@@ -128,6 +157,12 @@ export default function Dashboard({ userId }) {
                 )}
               </tbody>
             </table>
+            <div>
+              <Button
+                text="Export to txt"
+                onClick={() => setShowFormExport(true)}
+              ></Button>
+            </div>
           </div>
         </div>
       </div>
