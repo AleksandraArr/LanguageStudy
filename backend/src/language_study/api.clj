@@ -94,6 +94,31 @@
                     :body {:success false
                            :message (.getMessage e)}}))))
 
+           (POST "/api/exercise/generate-sentence" request
+             (try
+               (let [{:keys [user-id]} (:body request)
+                     result (words/generate-sentence-exercise user-id)]
+                 (if result
+                   {:status 200
+                    :body {:success true
+                           :data result}}))
+               (catch Exception e
+                 {:status 500
+                  :body {:success false
+                         :message (.getMessage e)}})))
+
+           (POST "/api/exercise/check-sentence" request
+             (try
+               (let [{:keys [sentence user-input]} (:body request)
+                     feedback (words/check-translation-exercise sentence user-input)]
+                 {:status 200
+                  :body {:success true
+                         :feedback feedback}})
+               (catch Exception e
+                 {:status 500
+                  :body {:success false
+                         :message (.getMessage e)}})))
+
            (route/not-found {:success false :message "Not found"}))
 
 

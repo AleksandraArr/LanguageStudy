@@ -1,12 +1,12 @@
 (ns language_study.ai
   (:require [hato.client :as http]
-            [cheshire.core :as json]))
+            [cheshire.core :as json]
+            [environ.core :refer [env]]))
 
-
-(def api-key "AIzaSyDc36xQKA3U4_Lw5RjUyFoAvUFgSRV2lq0")
-
+(def api-key (env :gemini-api-key))
 
 (defn generate-sentence [words]
+  (println api-key)
   (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
         prompt (str "Make only one natural, grammatically correct and short sentence using these three words: "
                     (clojure.string/join ", " words))
@@ -28,7 +28,7 @@
   (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
         prompt (str "The sentence is: \"" english-sentence "\".\n"
                     "The user's translation is: \"" user-translation "\".\n"
-                    "Is this translation correct? If yes, say 'Congratulations, you are right!' but in the language of user translation. If not, provide the correct translation and rate how close it is (0-100). Don't add anything else.")
+                    "Is this translation fully correct? If yes, say 'Congratulations, you are right!' but in the language of user translation. If not, provide the say 'You are wrong!' 'Correct answert is: 'correct translation and 'Closeness' rate how close it is (0-100). Don't add anything else.")
         body {:contents [{:parts [{:text prompt}]}]}
         response (http/post url
                             {:headers {"Content-Type" "application/json"

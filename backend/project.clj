@@ -20,7 +20,8 @@
                  [ring/ring-json "0.5.1"]
                  [ring-cors "0.1.13"]
                  [compojure "1.7.0"]
-                 [ring/ring-jetty-adapter "1.11.0"]]
+                 [ring/ring-jetty-adapter "1.11.0"]
+                 [environ "1.2.0"]]
   :plugins [[lein-midje "3.2.1"]]
   :main ^:skip-aot language_study.api
   :target-path "target/%s"

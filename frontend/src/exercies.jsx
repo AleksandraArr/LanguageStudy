@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "./components/button";
 import TranslateWord from "./components/translateWord";
 import MultipleChoice from "./components/multipleChoice";
+import TranslateSentence from "./components/translateSentence";
 
 export default function Exercises({ userId }) {
   const [type, setType] = useState(null);

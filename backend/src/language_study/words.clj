@@ -125,3 +125,13 @@
             feedback (ai/check-translation sentence user-input)]
         (println feedback))
       )))
+
+(defn generate-sentence-exercise [user-id]
+  (let [words (vec (db/list-words-for-ai user-id))
+        sentence (ai/generate-sentence words)]
+    (when sentence
+      {:words words
+       :sentence sentence})))
+
+(defn check-translation-exercise [sentence user-input]
+  (ai/check-translation sentence user-input))
