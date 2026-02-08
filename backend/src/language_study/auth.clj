@@ -8,7 +8,7 @@
     (jdbc/execute! ds
                    ["INSERT INTO users (username, password) VALUES (?,?)" username password]
                    {:builder-fn rs/as-unqualified-lower-maps})
-    nil
+    true
     (catch Exception e
       (.getMessage e))))
 

@@ -42,3 +42,30 @@
   color: red;
   font-weight: bold;
 }
+.form-link {
+  margin-top: 16px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.form-link .link {
+  color: #4f46e5;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.form-link .link:hover {
+  text-decoration: underline;
+}
+
+.exercise-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.exercise-buttons button {
+  flex: 1;
+}

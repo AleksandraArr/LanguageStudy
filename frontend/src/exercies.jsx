@@ -3,6 +3,7 @@ import Button from "./components/button";
 import TranslateWord from "./components/translateWord";
 import MultipleChoice from "./components/multipleChoice";
 import TranslateSentence from "./components/translateSentence";
+import "./components/form.css";
 
 export default function Exercises({ userId }) {
   const [type, setType] = useState(null);

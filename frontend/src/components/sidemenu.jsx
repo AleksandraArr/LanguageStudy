@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./sidemenu.css";
 
 export default function SideMenu({ setUser }) {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("userId");
     setUser(null);
@@ -18,12 +21,13 @@ export default function SideMenu({ setUser }) {
         <li>
           <NavLink to="/exercises">Exercises</NavLink>
         </li>
-
         <li>
           <NavLink to="/categories">Categories</NavLink>
         </li>
         <li>
-          <button onClick={handleLogout}>Logout</button>
+          <NavLink to="#" onClick={handleLogout}>
+            Logout
+          </NavLink>
         </li>
       </ul>
     </nav>

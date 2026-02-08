@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Dashboard from "./dashboard";
 import Categories from "./categories";
 import Login from "./login";
 import Exercises from "./exercies";
 import SideMenu from "./components/sidemenu";
+import Register from "./register";
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -43,6 +44,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       )}

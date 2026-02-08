@@ -4,6 +4,7 @@ import Modal from "./components/modal";
 import AddWordForm from "./components/addWordForm";
 import Button from "./components/button";
 import ExportTxtForm from "./components/exportTxtForm";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
@@ -80,11 +81,26 @@ export default function Dashboard({ userId }) {
     }
   };
 
+  const handleDeleteWord = async (wordId) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/words/${wordId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setWords(words.filter((w) => w.id !== wordId));
+      }
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
+  };
+
   const handleExportTxt = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(fileName);
       const res = await fetch("http://localhost:3000/api/export-xlsx", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -136,7 +152,8 @@ export default function Dashboard({ userId }) {
                 <tr>
                   <th>Word</th>
                   <th>Translation</th>
-                  <th>Action</th>
+                  <th>Success rate</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -149,8 +166,19 @@ export default function Dashboard({ userId }) {
                     <tr key={word.id}>
                       <td>{word.word}</td>
                       <td>{word.translation}</td>
+                      <td>{word.success} %</td>
                       <td>
-                        <button className="edit">Edit</button>
+                        <button className="edit">
+                          <FaEdit />
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="edit"
+                          onClick={() => handleDeleteWord(word.id)}
+                        >
+                          <FaTrash />
+                        </button>
                       </td>
                     </tr>
                   ))

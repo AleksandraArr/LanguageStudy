@@ -14,14 +14,8 @@
     (catch Exception e
       (println "Error adding word:" (.getMessage e)))))
 
-(defn get-words [user-id]
-  (db/get-words user-id))
-
-(defn categories-of-user [user-id]
-  (db/categories-of-user user-id))
-
-(defn add-category [user-id name]
-  (db/add-category! user-id name))
+(defn delete-word! [word-id]
+  (db/delete-word! word-id))
 
 (defn success_rate [row]
   (if (zero? (:total_count row))
@@ -29,13 +23,28 @@
     (/ (:correct_answers row)
        (:total_count row))))
 
-(defn statistics []
+(defn get-words [user-id]
+  (map (fn [row]
+         {:id          (:id row)
+          :word        (:word row)
+          :translation (:translation row)
+          :cat-id      (:cat_id row)
+          :success     (int (* 100 (success_rate row)))})
+       (db/get-words user-id)))
+
+(defn categories-of-user [user-id]
+  (db/categories-of-user user-id))
+
+(defn add-category [user-id name]
+  (db/add-category! user-id name))
+
+(defn statistics [user-id]
   (sort-by :success >
            (map (fn [row]
                   {:word        (:word row)
                    :translation (:translation row)
                    :success     (success_rate row)})
-                (db/load-all-words))))
+                (db/get-words user-id))))
 
 (defn compare-words [word1 word2]
   (= (.toLowerCase word1) (.toLowerCase word2)))
@@ -83,7 +92,6 @@
              (concat
                [["word" "translation" "success" "total"]]
                (map-words-for-xlsx words)))]
-    (println words)
     (excel/save-workbook! (str "report/" (str file-name ".xlsx")) wb)))
 
 (defn generate-multiple-choice [user-id]
@@ -112,19 +120,6 @@
     (db/update-word-stats word-id correct?)
     {:correct correct?
      :correct-answer correct}))
-
-
-(defn translate-sentence-exercise [id]
-  (let [words (vec (db/list-words-for-ai id))
-        sentence (ai/generate-sentence words)]
-    (when sentence
-      (println words)
-      (println "Sentence:" sentence)
-      (print "Your translation: ") (flush)
-      (let [user-input (read-line)
-            feedback (ai/check-translation sentence user-input)]
-        (println feedback))
-      )))
 
 (defn generate-sentence-exercise [user-id]
   (let [words (vec (db/list-words-for-ai user-id))

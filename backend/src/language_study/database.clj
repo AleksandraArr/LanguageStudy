@@ -22,6 +22,11 @@
                  {:builder-fn rs/as-unqualified-lower-maps})
   (println "Word added."))
 
+(defn delete-word! [word-id]
+  (jdbc/execute! ds
+                 ["DELETE FROM words WHERE id = ?" word-id]))
+
+
 (defn add-category! [user-id name]
   (jdbc/execute! ds
                  ["INSERT INTO word_categories (user_id, name) VALUES (?,?)"  user-id name]

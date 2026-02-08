@@ -23,19 +23,39 @@
                   :body {:success false
                          :message "Invalid username or password"}})))
 
-           (GET "/api/words" request
+           (POST "/api/register" request
+             (let [{:keys [username password]} (:body request)]
+               (try
+                 (auth/register! username password)
+                 {:status 200
+                  :body {:success true}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
+
+           (GET "/api/words" [user-id]
              {:status 200
               :body {:success true
-                     :words (words/get-words (Integer/parseInt (first (vals (:params request)))) )}})
+                     :words (words/get-words (Integer/parseInt user-id))}})
 
            (POST "/api/words" request
              (let [{:keys [user-id word translation cat-id]} (:body request)]
                (try
-                 (println (first (vals (:params request))))
                  (words/add-word user-id word translation cat-id)
                  {:status 200 :body {:success true}}
                  (catch Exception e
                    {:status 500 :body {:success false :error (.getMessage e)}}))))
+
+           (DELETE "/api/words/:id" [id]
+             (try
+               (words/delete-word! (Integer/parseInt id))
+               {:status 200
+                :body {:success true}}
+               (catch Exception e
+                 {:status 500
+                  :body {:success false
+                         :message (.getMessage e)}})))
 
            (GET "/api/categories" [user-id]
              (try
