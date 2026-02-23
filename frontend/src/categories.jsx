@@ -3,12 +3,14 @@ import "./dashboard.css";
 import Button from "./components/button";
 import AddCategoryForm from "./components/addCategoryForm";
 import Modal from "./components/modal";
+import { FaEdit } from "react-icons/fa";
 
 export default function Categories({ userId }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [categoryName, setCategoryName] = useState("");
+  const [editingCategory, setEditingCategory] = useState(null);
 
   useEffect(() => {
     if (!userId) return;
@@ -26,26 +28,55 @@ export default function Categories({ userId }) {
       .finally(() => setLoading(false));
   }, [userId]);
 
-  const handleAddCategory = () => {
-    fetch("http://localhost:3000/api/categories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "user-id": userId,
-        name: categoryName,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setCategories([...categories, { name: categoryName }]);
-          setCategoryName("");
-          setShowForm(false);
-        }
+  const handleSaveCategory = () => {
+    if (editingCategory) {
+      fetch(`http://localhost:3000/api/categories/${editingCategory.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: categoryName,
+        }),
       })
-      .catch(console.error);
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setCategories(
+              categories.map((cat) =>
+                cat.id === editingCategory.id
+                  ? { ...cat, name: categoryName }
+                  : cat,
+              ),
+            );
+            resetModal();
+          }
+        });
+    } else {
+      fetch("http://localhost:3000/api/categories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "user-id": userId,
+          name: categoryName,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setCategories([...categories, { id: data.id, name: categoryName }]);
+            resetModal();
+          }
+        });
+    }
+  };
+
+  const resetModal = () => {
+    setCategoryName("");
+    setEditingCategory(null);
+    setShowForm(false);
   };
 
   if (loading) return <div>Loading categories...</div>;
@@ -59,7 +90,11 @@ export default function Categories({ userId }) {
               <h3>Your categories</h3>
               <Button
                 text="Add category"
-                onClick={() => setShowForm(true)}
+                onClick={() => {
+                  setEditingCategory(category);
+                  setCategoryName(category.name);
+                  setShowForm(true);
+                }}
               ></Button>
             </div>
             <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
@@ -68,7 +103,7 @@ export default function Categories({ userId }) {
                 setCategoryName={setCategoryName}
                 onSubmit={(e) => {
                   e.preventDefault();
-                  handleAddCategory();
+                  handleSaveCategory();
                 }}
               />
             </Modal>
@@ -88,7 +123,16 @@ export default function Categories({ userId }) {
                     <tr key={category.id}>
                       <td>{category.name}</td>
                       <td>
-                        <button className="edit">Edit</button>
+                        <button
+                          className="edit"
+                          onClick={() => {
+                            setEditingCategory(category);
+                            setCategoryName(category.name);
+                            setShowForm(true);
+                          }}
+                        >
+                          <FaEdit />
+                        </button>
                       </td>
                     </tr>
                   ))

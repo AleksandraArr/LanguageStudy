@@ -11,15 +11,10 @@ export default function Dashboard({ userId }) {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [editingWord, setEditingWord] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [fileName, setFileName] = useState("");
   const [showFormExport, setShowFormExport] = useState(false);
-
-  const [newWord, setNewWord] = useState({
-    word: "",
-    translation: "",
-    catId: "",
-  });
 
   useEffect(() => {
     if (!userId) return;
@@ -52,34 +47,6 @@ export default function Dashboard({ userId }) {
       })
       .catch((err) => console.error(err));
   }, [userId]);
-
-  const handleAddWord = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("http://localhost:3000/api/words", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "user-id": userId,
-          word: newWord.word,
-          translation: newWord.translation,
-          "cat-id": Number(selectedCategory),
-        }),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setWords((prev) => [...prev, { id: Date.now(), ...newWord }]);
-        setNewWord({ word: "", translation: "", catId: "" });
-        setShowForm(false);
-      } else {
-        console.error("Add word failed:", data.error || data.message);
-      }
-    } catch (err) {
-      console.error("Add word fetch error:", err);
-    }
-  };
 
   const handleDeleteWord = async (wordId) => {
     try {
@@ -114,22 +81,34 @@ export default function Dashboard({ userId }) {
     }
   };
 
+  const handleSaveFromModal = (savedWord) => {
+    if (editingWord) {
+      setWords((prev) =>
+        prev.map((w) => (w.id === editingWord.id ? savedWord : w)),
+      );
+    } else {
+      setWords((prev) => [...prev, savedWord]);
+    }
+    setEditingWord(null);
+    setShowForm(false);
+  };
+
   if (loading) return <div>Loading words...</div>;
 
   return (
     <div>
       <div>
-        <h1>Dashboard</h1>
+        <h1>Words</h1>
+
         <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
           <AddWordForm
-            newWord={newWord}
-            setNewWord={setNewWord}
+            editingWord={editingWord}
             categories={categories}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            onSubmit={handleAddWord}
+            userId={userId}
+            onSave={handleSaveFromModal}
           />
         </Modal>
+
         <Modal isOpen={showFormExport} onClose={() => setShowFormExport(false)}>
           <ExportTxtForm
             fileName={fileName}
@@ -153,6 +132,7 @@ export default function Dashboard({ userId }) {
                   <th>Word</th>
                   <th>Translation</th>
                   <th>Success rate</th>
+                  <th>Category</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -167,8 +147,15 @@ export default function Dashboard({ userId }) {
                       <td>{word.word}</td>
                       <td>{word.translation}</td>
                       <td>{word.success} %</td>
+                      <td>{word.category_name}</td>
                       <td>
-                        <button className="edit">
+                        <button
+                          className="edit"
+                          onClick={() => {
+                            setEditingWord(word);
+                            setShowForm(true);
+                          }}
+                        >
                           <FaEdit />
                         </button>
                       </td>

@@ -35,17 +35,27 @@
                            :message (.getMessage e)}}))))
 
            (GET "/api/words" [user-id]
-             {:status 200
-              :body {:success true
-                     :words (words/get-words (Integer/parseInt user-id))}})
+             (try
+               {:status 200
+                :body {:success true :words (words/get-words (Integer/parseInt user-id))}}
+               (catch Exception e
+                 {:status 500 :body {:success false :message (.getMessage e)}})))
 
            (POST "/api/words" request
              (let [{:keys [user-id word translation cat-id]} (:body request)]
                (try
-                 (words/add-word user-id word translation cat-id)
-                 {:status 200 :body {:success true}}
+                 (let [new-id (words/add-word user-id word translation cat-id)]
+                   {:status 200 :body {:success true :id new-id}})
                  (catch Exception e
                    {:status 500 :body {:success false :error (.getMessage e)}}))))
+
+           (PUT "/api/words/:id" [id :as request]
+             (let [{:keys [word translation cat-id]} (:body request)]
+               (try
+                 (words/edit-word! (Integer/parseInt id) word translation cat-id)
+                 {:status 200 :body {:success true}}
+                 (catch Exception e
+                   {:status 500 :body {:success false :message (.getMessage e)}}))))
 
            (DELETE "/api/words/:id" [id]
              (try
@@ -71,13 +81,22 @@
            (POST "/api/categories" request
              (let [{:keys [user-id name]} (:body request)]
                (try
-                 (words/add-category user-id name)
+                 (let [new-id (words/add-category user-id name)]
                  {:status 200
-                  :body {:success true}}
+                  :body {:success true
+                         :id new-id}})
                  (catch Exception e
                    {:status 500
                     :body {:success false
                            :message (.getMessage e)}}))))
+
+           (PUT "/api/categories/:id" [id :as request]
+             (let [{:keys [name]} (:body request)]
+               (try
+                 (words/edit-category! (Integer/parseInt id) name)
+                 {:status 200 :body {:success true}}
+                 (catch Exception e
+                   {:status 500 :body {:success false :message (.getMessage e)}}))))
 
            (POST "/api/exercise/translate" request
              (let [{:keys [user-id]} (:body request)]

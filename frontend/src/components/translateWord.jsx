@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "./form.css";
+
 export default function TranslateWord({ userId }) {
   const [word, setWord] = useState(null);
   const [wordId, setWordId] = useState(null);
@@ -88,6 +90,9 @@ export default function TranslateWord({ userId }) {
 
           {result && (
             <>
+              <button className="form-button" onClick={loadWord}>
+                Next word
+              </button>
               <p
                 style={{
                   color: result.correct ? "green" : "red",
@@ -98,10 +103,6 @@ export default function TranslateWord({ userId }) {
                   ? "Correct!"
                   : `Wrong. Correct answer: ${result["correct-answer"]}`}
               </p>
-
-              <button className="form-button" onClick={loadWord}>
-                Next word
-              </button>
             </>
           )}
         </>

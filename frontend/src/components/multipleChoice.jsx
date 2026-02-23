@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./form.css";
 
 export default function MultipleChoice({ userId }) {
   const [word, setWord] = useState(null);
@@ -104,6 +105,9 @@ export default function MultipleChoice({ userId }) {
 
           {result && (
             <>
+              <button className="form-button" onClick={loadQuestion}>
+                Next question
+              </button>
               <p
                 style={{
                   color: result.correct ? "green" : "red",
@@ -114,10 +118,6 @@ export default function MultipleChoice({ userId }) {
                   ? "Correct!"
                   : `Wrong. Correct answer: ${result["correct-answer"]}`}
               </p>
-
-              <button className="form-button" onClick={loadQuestion}>
-                Next question
-              </button>
             </>
           )}
         </>

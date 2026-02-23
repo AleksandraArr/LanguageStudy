@@ -17,21 +17,35 @@
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn add-word! [user-id word translation cat-id]
-  (jdbc/execute! ds
-                 ["INSERT INTO words (user_id, word, translation, category_id) VALUES (?,?,?,?)" user-id word translation cat-id]
-                 {:builder-fn rs/as-unqualified-lower-maps})
-  (println "Word added."))
+  (-> (jdbc/execute! ds
+                 ["INSERT INTO words (user_id, word, translation, category_id) VALUES (?,?,?,?) RETURNING id" user-id word translation cat-id]
+                 {:builder-fn rs/as-unqualified-lower-maps}) first :id))
 
 (defn delete-word! [word-id]
   (jdbc/execute! ds
                  ["DELETE FROM words WHERE id = ?" word-id]))
 
+(defn update-word!
+  [word-id word translation cat-id]
+  (jdbc/execute! ds
+                 ["UPDATE words
+                   SET word = ?,
+                       translation = ?,
+                       category_id = ?
+                   WHERE id = ?"
+                  word translation cat-id word-id]))
 
 (defn add-category! [user-id name]
+  (-> (jdbc/execute! ds ["INSERT INTO word_categories (user_id, name) VALUES (?, ?) RETURNING id" user-id name]
+                     {:builder-fn rs/as-unqualified-lower-maps}) first :id))
+
+(defn update-category!
+  [cat-id name]
   (jdbc/execute! ds
-                 ["INSERT INTO word_categories (user_id, name) VALUES (?,?)"  user-id name]
-                 {:builder-fn rs/as-unqualified-lower-maps})
-  (println "Category added."))
+                 ["UPDATE word_categories
+                   SET name = ?
+                   WHERE id = ?"
+                  name cat-id]))
 
 (defn categories-of-user [user-id]
   (jdbc/execute! ds
@@ -40,12 +54,12 @@
 
 (defn get-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT * FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                 ["SELECT w.*, c.name AS category_name FROM words w INNER JOIN word_categories c ON w.category_id = c.id WHERE w.user_id=? ORDER BY created_at" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn list-words-for-ai [user-id]
   (->> (jdbc/execute! ds
-                      ["SELECT translation FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                      ["SELECT words FROM words WHERE user_id=? ORDER BY created_at" user-id]
                       {:builder-fn rs/as-unqualified-lower-maps})
        shuffle
        (take 3)

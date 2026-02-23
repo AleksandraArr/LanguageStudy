@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./form.css";
 
 export default function TranslateSentence({ userId }) {
   const [sentence, setSentence] = useState(null);

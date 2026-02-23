@@ -17,6 +17,14 @@
 (defn delete-word! [word-id]
   (db/delete-word! word-id))
 
+(defn edit-word!
+  [word-id word translation cat-id]
+  (try
+    (db/update-word! word-id word translation cat-id)
+    (println "Word updated successfully!")
+    (catch Exception e
+      (println "Error updating word:" (.getMessage e)))))
+
 (defn success_rate [row]
   (if (zero? (:total_count row))
     0
@@ -28,23 +36,28 @@
          {:id          (:id row)
           :word        (:word row)
           :translation (:translation row)
-          :cat-id      (:cat_id row)
-          :success     (int (* 100 (success_rate row)))})
+          :category_id      (:category_id row)
+          :success     (int (* 100 (success_rate row)))
+          :category_name (:category_name row)})
        (db/get-words user-id)))
 
 (defn categories-of-user [user-id]
   (db/categories-of-user user-id))
 
 (defn add-category [user-id name]
-  (db/add-category! user-id name))
+  (try
+    (db/add-category! user-id name)
+    (println "Category added!")
+    (catch Exception e
+      (println "Error adding category:" (.getMessage e)))))
 
-(defn statistics [user-id]
-  (sort-by :success >
-           (map (fn [row]
-                  {:word        (:word row)
-                   :translation (:translation row)
-                   :success     (success_rate row)})
-                (db/get-words user-id))))
+(defn edit-category!
+  [cat-id name]
+  (try
+    (db/update-category! cat-id name)
+    (println "Category updated!")
+    (catch Exception e
+      (println "Error updating category:" (.getMessage e)))))
 
 (defn compare-words [word1 word2]
   (= (.toLowerCase word1) (.toLowerCase word2)))
@@ -109,7 +122,6 @@
 
 (defn get-translate-word [user-id]
   (when-let [row (get-random-word user-id)]
-    (println row)
     {:word-id (:id row)
      :word (:word row)}))
 
