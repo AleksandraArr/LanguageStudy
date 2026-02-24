@@ -100,27 +100,42 @@
 
            (POST "/api/exercise/translate" request
              (let [{:keys [user-id]} (:body request)]
-               (if-let [exercise (words/get-translate-word user-id)]
-                 {:status 200
-                  :body {:success true
-                         :data exercise}}
-                 {:status 200
-                  :body {:success false
-                         :message "No words found"}})))
+               (try
+                 (if-let [exercise (words/get-translate-word user-id)]
+                   {:status 200
+                    :body {:success true
+                           :data exercise}}
+                   {:status 200
+                    :body {:success false
+                           :message "No words found"}})
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
 
 
            (POST "/api/exercise/translate/check" request
              (let [{:keys [word-id answer]} (:body request)]
-               {:status 200
-                :body {:success true
-                       :data (words/check-translate-word word-id answer)}}))
+               (try
+                 {:status 200
+                  :body {:success true
+                         :data (words/check-translate-word word-id answer)}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
 
            (POST "/api/exercise/multiple-choice"
                  request
              (let [{:keys [user-id]} (:body request)]
+               (try
                {:status 200
                 :body {:success true
-                       :data (words/generate-multiple-choice user-id)}}))
+                       :data (words/generate-multiple-choice user-id)}}
+               (catch Exception e
+                 {:status 500
+                  :body {:success false
+                         :message (.getMessage e)}}))))
 
            (POST "/api/export-xlsx" request
              (let [{:keys [user-id file-name]} (:body request)]
