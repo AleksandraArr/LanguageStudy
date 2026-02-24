@@ -142,3 +142,21 @@
 
 (defn check-translation-exercise [sentence user-input]
   (ai/check-translation sentence user-input))
+
+(defn generate-and-save-ai-words!
+  [{:keys [user-id level number language target-language notes]}]
+  (let [generated (ai/generate-words
+                    {:level level
+                     :number number
+                     :language language
+                     :target-language target-language
+                     :notes notes})]
+
+    (mapv (fn [{:keys [word translation]}]
+            (let [id (db/add-word! user-id word translation nil)]
+              {:id id
+               :word word
+               :translation translation
+               :success 0
+               :category_name ""}))
+          generated)))

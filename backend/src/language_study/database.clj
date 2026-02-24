@@ -11,11 +11,6 @@
 
   (def ds (jdbc/get-datasource db-spec))
 
-(defn load-all-words []
-  (jdbc/execute! ds
-                 ["SELECT word, translation, correct_answers, total_count FROM words"]
-                 {:builder-fn rs/as-unqualified-lower-maps}))
-
 (defn add-word! [user-id word translation cat-id]
   (-> (jdbc/execute! ds
                  ["INSERT INTO words (user_id, word, translation, category_id) VALUES (?,?,?,?) RETURNING id" user-id word translation cat-id]
@@ -54,16 +49,16 @@
 
 (defn get-words [user-id]
   (jdbc/execute! ds
-                 ["SELECT w.*, c.name AS category_name FROM words w INNER JOIN word_categories c ON w.category_id = c.id WHERE w.user_id=? ORDER BY created_at" user-id]
+                 ["SELECT w.*, c.name AS category_name FROM words w LEFT JOIN word_categories c ON w.category_id = c.id WHERE w.user_id=? ORDER BY created_at" user-id]
                  {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defn list-words-for-ai [user-id]
   (->> (jdbc/execute! ds
-                      ["SELECT words FROM words WHERE user_id=? ORDER BY created_at" user-id]
+                      ["SELECT word FROM words WHERE user_id=? ORDER BY created_at" user-id]
                       {:builder-fn rs/as-unqualified-lower-maps})
        shuffle
        (take 3)
-       (map :translation)))
+       (map :word)))
 
 (defn get-word-by-id [word-id]
   (first

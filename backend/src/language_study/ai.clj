@@ -6,7 +6,6 @@
 (def api-key (env :gemini-api-key))
 
 (defn generate-sentence [words]
-  (println api-key)
   (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
         prompt (str "Make only one natural, grammatically correct and short sentence using these three words: "
                     (clojure.string/join ", " words))
@@ -41,3 +40,33 @@
                      (get-in [:candidates 0 :content :parts 0 :text])
                      clojure.string/trim)]
     answer))
+
+(defn generate-words
+  [{:keys [level number language target-language notes]}]
+  (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
+        prompt (str
+                 "Generate exactly " number " vocabulary words.\n"
+                 "Language: " language ".\n"
+                 "Target translation language: " target-language ".\n"
+                 "Level: " level " (CEFR level: A1, A2, B1 or B2).\n"
+                 "Important notes: " notes "\n"
+                 "Return ONLY valid JSON array in this format:\n"
+                 "[{\"word\": \"example\", \"translation\": \"primer\"}]\n"
+                 "Do not add explanations. Do not add markdown.")
+        body {:contents [{:parts [{:text prompt}]}]}
+        response (http/post url
+                            {:headers {"Content-Type" "application/json"
+                                       "x-goog-api-key" api-key}
+                             :body (json/encode body)
+                             :throw-exceptions? false})
+
+        raw-text (-> response
+                     :body
+                     (json/decode true)
+                     (get-in [:candidates 0 :content :parts 0 :text])
+                     clojure.string/trim)]
+    (try
+      (json/decode raw-text true)
+      (catch Exception e
+        {:error "AI did not return valid JSON"
+         :raw raw-text}))))

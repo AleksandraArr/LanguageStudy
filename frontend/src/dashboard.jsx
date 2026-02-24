@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./dashboard.css";
 import Modal from "./components/modal";
 import AddWordForm from "./components/addWordForm";
+import GenerateWordsAIForm from "./components/generateWordsAIForm";
 import Button from "./components/button";
 import ExportTxtForm from "./components/exportTxtForm";
 import { FaTrash, FaEdit } from "react-icons/fa";
@@ -13,6 +14,7 @@ export default function Dashboard({ userId }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingWord, setEditingWord] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showAiForm, setShowAiForm] = useState(false);
   const [fileName, setFileName] = useState("");
   const [showFormExport, setShowFormExport] = useState(false);
 
@@ -117,6 +119,16 @@ export default function Dashboard({ userId }) {
           />
         </Modal>
 
+        <Modal isOpen={showAiForm} onClose={() => setShowAiForm(false)}>
+          <GenerateWordsAIForm
+            userId={userId}
+            onSave={(newWords) => {
+              setWords((prev) => [...prev, ...newWords]);
+              setShowAiForm(false);
+            }}
+          />
+        </Modal>
+
         <div className="table-data">
           <div className="order">
             <div className="head">
@@ -124,6 +136,10 @@ export default function Dashboard({ userId }) {
               <Button
                 text="Add word"
                 onClick={() => setShowForm(true)}
+              ></Button>
+              <Button
+                text="Generate words with AI"
+                onClick={() => setShowAiForm(true)}
               ></Button>
             </div>
             <table>

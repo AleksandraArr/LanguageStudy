@@ -173,6 +173,31 @@
                   :body {:success false
                          :message (.getMessage e)}})))
 
+           (POST "/api/ai/generate-words" request
+             (let [{:keys [user-id level number language target-language notes category-id]}
+                   (:body request)]
+               (try
+                   {:status 200
+                    :body {:success true
+                           :data (words/generate-and-save-ai-words! {:user-id user-id
+                                                                     :level level
+                                                                     :number number
+                                                                     :language language
+                                                                     :target-language target-language
+                                                                     :notes notes
+                                                                     :category-id category-id})}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
+           (POST "/api/words" request
+             (let [{:keys [user-id word translation cat-id]} (:body request)]
+               (try
+                 (let [new-id (words/add-word user-id word translation cat-id)]
+                   {:status 200 :body {:success true :id new-id}})
+                 (catch Exception e
+                   {:status 500 :body {:success false :error (.getMessage e)}}))))
+
            (route/not-found {:success false :message "Not found"}))
 
 

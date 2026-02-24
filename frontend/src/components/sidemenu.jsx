@@ -16,7 +16,7 @@ export default function SideMenu({ setUser }) {
     <nav className="site-nav">
       <ul>
         <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/dashboard">Words</NavLink>
         </li>
         <li>
           <NavLink to="/exercises">Exercises</NavLink>
