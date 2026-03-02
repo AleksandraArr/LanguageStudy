@@ -6,6 +6,7 @@ import GenerateWordsAIForm from "./components/generateWordsAIForm";
 import Button from "./components/button";
 import ExportTxtForm from "./components/exportTxtForm";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
@@ -17,6 +18,20 @@ export default function Dashboard({ userId }) {
   const [showAiForm, setShowAiForm] = useState(false);
   const [fileName, setFileName] = useState("");
   const [showFormExport, setShowFormExport] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = words.slice(
+    currentPage * itemsPerPage,
+    currentPage * itemsPerPage + itemsPerPage,
+  );
+  const pageCount = Math.ceil(words.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   useEffect(() => {
     if (!userId) return;
@@ -100,8 +115,6 @@ export default function Dashboard({ userId }) {
   return (
     <div>
       <div>
-        <h1>Words</h1>
-
         <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
           <AddWordForm
             editingWord={editingWord}
@@ -153,12 +166,12 @@ export default function Dashboard({ userId }) {
                 </tr>
               </thead>
               <tbody>
-                {words.length === 0 ? (
+                {currentItems.length === 0 ? (
                   <tr>
                     <td colSpan={3}>No words found.</td>
                   </tr>
                 ) : (
-                  words.map((word) => (
+                  currentItems.map((word) => (
                     <tr key={word.id}>
                       <td>{word.word}</td>
                       <td>{word.translation}</td>
@@ -188,6 +201,29 @@ export default function Dashboard({ userId }) {
                 )}
               </tbody>
             </table>
+            <div>
+              {pageCount > 1 && (
+                <ReactPaginate
+                  previousLabel={"← Previous"}
+                  nextLabel={"Next →"}
+                  breakLabel={"..."}
+                  pageCount={pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  breakClassName={"page-item"}
+                  breakLinkClassName={"page-link"}
+                  activeClassName={"active"}
+                />
+              )}
+            </div>
             <div>
               <Button
                 text="Export to txt"

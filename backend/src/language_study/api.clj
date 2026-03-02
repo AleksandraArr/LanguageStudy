@@ -190,6 +190,7 @@
                    {:status 500
                     :body {:success false
                            :message (.getMessage e)}}))))
+
            (POST "/api/words" request
              (let [{:keys [user-id word translation cat-id]} (:body request)]
                (try

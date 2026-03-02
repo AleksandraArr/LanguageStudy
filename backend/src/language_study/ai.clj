@@ -45,11 +45,13 @@
   [{:keys [level number language target-language notes]}]
   (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
         prompt (str
+                 "You MUST strictly follow these instructions:\n"
                  "Generate exactly " number " vocabulary words.\n"
+                 notes "\n\n"
                  "Language: " language ".\n"
                  "Target translation language: " target-language ".\n"
                  "Level: " level " (CEFR level: A1, A2, B1 or B2).\n"
-                 "Important notes: " notes "\n"
+                 "!!! STRICT INSTRUCTIONS !!!\n"
                  "Return ONLY valid JSON array in this format:\n"
                  "[{\"word\": \"example\", \"translation\": \"primer\"}]\n"
                  "Do not add explanations. Do not add markdown.")

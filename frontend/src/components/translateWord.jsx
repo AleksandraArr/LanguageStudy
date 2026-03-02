@@ -95,13 +95,16 @@ export default function TranslateWord({ userId }) {
               </button>
               <p
                 style={{
-                  color: result.correct ? "green" : "red",
+                  color:
+                    result.feedback.status === "correct"
+                      ? "green"
+                      : result.feedback.status === "almost"
+                        ? "orange"
+                        : "red",
                   marginTop: 10,
                 }}
               >
-                {result.correct
-                  ? "Correct!"
-                  : `Wrong. Correct answer: ${result["correct-answer"]}`}
+                {result.feedback.message}
               </p>
             </>
           )}

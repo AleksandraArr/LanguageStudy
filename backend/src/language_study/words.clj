@@ -1,8 +1,8 @@
 (ns language_study.words
   (:require
     [language_study.database :as db]
-    [clojure.string :as str]
     [language_study.ai :as ai]
+    [clojure.string :as str]
     [dk.ative.docjure.spreadsheet :as excel])
   (:import (java.time LocalDate)
            (java.time.temporal ChronoUnit)))
@@ -59,23 +59,35 @@
     (catch Exception e
       (println "Error updating category:" (.getMessage e)))))
 
-(defn compare-words [word1 word2]
-  (= (.toLowerCase word1) (.toLowerCase word2)))
+(defn one-letter-different? [input correct]
+  (= 1 (count (filter false? (map = input correct)))))
 
-(defn read-from-file [file-name]
-  (map #(str/split % #" ") (str/split-lines (slurp file-name))))
+(defn compare-words [word1 word2]
+  (let [in   (str/lower-case (str/trim word1))
+        corr (str/lower-case (str/trim word2))]
+
+    (if (= in corr)
+      {:status :correct
+       :message "Correct!"}
+
+      (if (and (= (count in) (count corr))
+               (one-letter-different? in corr))
+        {:status :almost
+         :message (str "Almost! Right answer is: " word2)}
+
+        {:status :wrong
+         :message (str "Wrong. Right answer is: " word2)}))))
 
 (defn weight-of-word [row]
   (let [correct (:correct_answers row)
         total   (:total_count row)
-        last-attend (-> (:last_attend row)
-                        (.toLocalDate))
+        last-attend (.toLocalDate (:last_attend row))
         today (LocalDate/now)
         days-since (.until last-attend today ChronoUnit/DAYS)
         base-weight (if (zero? total)
                         1.0
                         (- 1 (/ correct total)))]
-      (+ base-weight days-since)))
+      (+ (* 0.7 base-weight) (* 0.3 (min 1.0 (/ days-since 30.0))))))
 
 (defn weighted-rand [items weight-fn]
   (loop [r (* (reduce + (map weight-fn items)) (rand))
@@ -125,12 +137,14 @@
     {:word-id (:id row)
      :word (:word row)}))
 
+
 (defn check-translate-word [word-id user-answer]
   (let [row (db/get-word-by-id word-id)
         correct (:translation row)
-        correct? (compare-words user-answer correct)]
+        result (compare-words user-answer correct)
+        correct? (= (:status result) :correct)]
     (db/update-word-stats word-id correct?)
-    {:correct correct?
+    {:feedback result
      :correct-answer correct}))
 
 (defn generate-sentence-exercise [user-id]

@@ -85,13 +85,6 @@ export default function GenerateWordsAIForm({ userId, onSave }) {
         required
       />
 
-      <textarea
-        className="form-input"
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        placeholder="Notes (optional)"
-      />
-
       <Button text={loading ? "Generating..." : "Generate"} type="submit" />
     </form>
   );

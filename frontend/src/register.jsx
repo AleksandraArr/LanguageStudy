@@ -55,6 +55,12 @@ export default function Register() {
       />
 
       <Button text="Register" type="submit" />
+      <p className="form-link">
+        Already have an account?{" "}
+        <span className="link" onClick={() => navigate("/login")}>
+          Login!
+        </span>
+      </p>
 
       {message && <p className="form-message">{message}</p>}
     </form>
