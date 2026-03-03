@@ -137,6 +137,17 @@
                   :body {:success false
                          :message (.getMessage e)}}))))
 
+           (POST "/api/exercise/multiple-choice/check" request
+             (let [{:keys [word-id answer]} (:body request)]
+               (try
+                 {:status 200
+                  :body {:success true
+                         :data (words/check-word-for-multiple-choice word-id answer)}}
+                 (catch Exception e
+                   {:status 500
+                    :body {:success false
+                           :message (.getMessage e)}}))))
+
            (POST "/api/export-xlsx" request
              (let [{:keys [user-id file-name]} (:body request)]
                (try

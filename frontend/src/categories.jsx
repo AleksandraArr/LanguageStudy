@@ -82,65 +82,61 @@ export default function Categories({ userId }) {
   if (loading) return <div>Loading categories...</div>;
 
   return (
-    <div>
-      <div>
-        <div className="table-data">
-          <div className="order">
-            <div className="head">
-              <h3>Your categories</h3>
-              <Button
-                text="Add category"
-                onClick={() => {
-                  setEditingCategory(category);
-                  setCategoryName(category.name);
-                  setShowForm(true);
-                }}
-              ></Button>
-            </div>
-            <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
-              <AddCategoryForm
-                categoryName={categoryName}
-                setCategoryName={setCategoryName}
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSaveCategory();
-                }}
-              />
-            </Modal>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {categories.length === 0 ? (
-                  <tr>
-                    <td colSpan={3}>No category found.</td>
-                  </tr>
-                ) : (
-                  categories.map((category) => (
-                    <tr key={category.id}>
-                      <td>{category.name}</td>
-                      <td>
-                        <button
-                          className="edit"
-                          onClick={() => {
-                            setEditingCategory(category);
-                            setCategoryName(category.name);
-                            setShowForm(true);
-                          }}
-                        >
-                          <FaEdit />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+    <div className="container">
+      <div className="inside-container">
+        <div className="head">
+          <h3>Your categories</h3>
+          <Button
+            text="Add category"
+            onClick={() => {
+              setEditingCategory(category);
+              setCategoryName(category.name);
+              setShowForm(true);
+            }}
+          ></Button>
         </div>
+        <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
+          <AddCategoryForm
+            categoryName={categoryName}
+            setCategoryName={setCategoryName}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSaveCategory();
+            }}
+          />
+        </Modal>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.length === 0 ? (
+              <tr>
+                <td colSpan={3}>No category found.</td>
+              </tr>
+            ) : (
+              categories.map((category) => (
+                <tr key={category.id}>
+                  <td>{category.name}</td>
+                  <td>
+                    <button
+                      className="edit"
+                      onClick={() => {
+                        setEditingCategory(category);
+                        setCategoryName(category.name);
+                        setShowForm(true);
+                      }}
+                    >
+                      <FaEdit />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

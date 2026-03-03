@@ -142,8 +142,8 @@ export default function Dashboard({ userId }) {
           />
         </Modal>
 
-        <div className="table-data">
-          <div className="order">
+        <div className="container">
+          <div className="inside-container">
             <div className="head">
               <h3>Your Words</h3>
               <Button

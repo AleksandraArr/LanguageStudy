@@ -59,24 +59,63 @@
     (catch Exception e
       (println "Error updating category:" (.getMessage e)))))
 
-(defn one-letter-different? [input correct]
-  (= 1 (count (filter false? (map = input correct)))))
+(defn one-letter-different? [s1 s2]
+  (= 1 (count (filter false? (map = s1 s2)))))
+
+(defn remove-char-at [s idx]
+  (str (subs s 0 idx)
+       (subs s (inc idx))))
+
+(defn one-deletion-away? [shorter longer]
+  (some true?
+        (for [i (range (count longer))]
+          (= shorter (remove-char-at longer i)))))
+
+(defn one-transposition-away? [s1 s2]
+  (some true?
+        (for [i (range (dec (count s1)))]
+          (= s2
+             (str (subs s1 0 i)
+                  (nth s1 (inc i))
+                  (nth s1 i)
+                  (subs s1 (+ i 2)))))))
 
 (defn compare-words [word1 word2]
   (let [in   (str/lower-case (str/trim word1))
-        corr (str/lower-case (str/trim word2))]
+        corr (str/lower-case (str/trim word2))
+        len1 (count in)
+        len2 (count corr)
+        diff (Math/abs (- len1 len2))]
 
-    (if (= in corr)
+    (cond
+      (= in corr)
       {:status :correct
        :message "Correct!"}
 
-      (if (and (= (count in) (count corr))
-               (one-letter-different? in corr))
+      (> diff 2)
+      {:status :wrong
+       :message (str "Wrong. Right answer is: " word2)}
+
+      (= diff 1)
+      (if (if (< len1 len2)
+            (one-deletion-away? in corr)
+            (one-deletion-away? corr in))
         {:status :almost
          :message (str "Almost! Right answer is: " word2)}
-
         {:status :wrong
-         :message (str "Wrong. Right answer is: " word2)}))))
+         :message (str "Wrong. Right answer is: " word2)})
+
+      (= len1 len2)
+      (if (or (one-letter-different? in corr)
+              (one-transposition-away? in corr))
+        {:status :almost
+         :message (str "Almost! Right answer is: " word2)}
+        {:status :wrong
+         :message (str "Wrong. Right answer is: " word2)})
+
+      :else
+      {:status :wrong
+       :message (str "Wrong. Right answer is: " word2)})))
 
 (defn weight-of-word [row]
   (let [correct (:correct_answers row)
@@ -137,6 +176,16 @@
     {:word-id (:id row)
      :word (:word row)}))
 
+(defn compare-words-for-multiple-choice [word1 word2]
+  (= (.toLowerCase word1) (.toLowerCase word2)))
+
+(defn check-word-for-multiple-choice [word-id user-answer]
+  (let [row (db/get-word-by-id word-id)
+        correct (:translation row)
+        correct? (compare-words-for-multiple-choice user-answer correct)]
+    (db/update-word-stats word-id correct?)
+    {:correct correct?
+     :correct-answer correct}))
 
 (defn check-translate-word [word-id user-answer]
   (let [row (db/get-word-by-id word-id)

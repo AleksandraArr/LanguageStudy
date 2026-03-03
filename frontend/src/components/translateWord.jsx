@@ -37,7 +37,6 @@ export default function TranslateWord({ userId }) {
     if (!answer.trim()) return;
 
     try {
-      console.log("wordId:", wordId);
       const res = await fetch(
         "http://localhost:3000/api/exercise/translate/check",
         {

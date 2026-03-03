@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import "./components/form.css";
+import "./login.css";
 import Button from "./components/button";
+import logo from "./img/logo.png";
 
 export default function Login({ setUser }) {
   const [username, setUsername] = useState("");
@@ -33,35 +34,40 @@ export default function Login({ setUser }) {
   };
 
   return (
-    <form className="form-container" onSubmit={handleLogin}>
-      <h1>Login</h1>
+    <div className="container">
+      <form className="form-container" onSubmit={handleLogin}>
+        <div className="form-logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <h1>Welcome back to WordsVoyage</h1>
 
-      <input
-        className="form-input"
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
 
-      <input
-        className="form-input"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <Button text="Login" onClick={() => handleLogin()}></Button>
-      <p className="form-link">
-        You don’t have an account?{" "}
-        <span className="link" onClick={() => navigate("/register")}>
-          Register!
-        </span>
-      </p>
+        <input
+          className="form-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <Button text="Login" onClick={() => handleLogin()}></Button>
+        <p className="form-link">
+          You don’t have an account?{" "}
+          <span className="link" onClick={() => navigate("/register")}>
+            Register!
+          </span>
+        </p>
 
-      {message && <p className="form-message">{message}</p>}
-    </form>
+        {message && <p className="form-message">{message}</p>}
+      </form>
+    </div>
   );
 }

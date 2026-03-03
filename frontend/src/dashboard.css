@@ -5,12 +5,12 @@
   --light-blue: #cfe8ff;
   --grey: #eee;
   --dark: #342e37;
-  --orange: #fd7238;
+  --orange: #ff9914;
   --light-orange: #ffe0d3;
 }
 
 body {
-  background-image: url("/background.png");
+  background-image: url("./img/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,65 +20,65 @@ body {
   padding: 0;
 }
 
-/* TABLE CONTAINER */
-.table-data {
+.container {
   display: flex;
   flex-wrap: wrap;
-  grid-gap: 24px;
-  margin: 24px;
   width: 100%;
+  gap: 24px;
   color: var(--dark);
 }
 
-.table-data > .order {
+.container > .inside-container {
   flex-grow: 1;
   flex-basis: 500px;
-  border-radius: 20px;
+  border-collapse: 20px;
   background: var(--light);
-  padding: 24px;
+  padding: 34px;
+  margin: 0px 20px;
   overflow-x: auto;
+  min-height: 90vh;
 }
 
-.table-data .order .head {
+.container .inside-container .head {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 24px;
 }
-.table-data .order .head h3 {
+.container .inside-container .head h3 {
   margin-right: auto;
   font-size: 24px;
   font-weight: 600;
 }
 
-.table-data .order table {
+.container .inside-container table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table-data .order table th {
+.container .inside-container table th {
   padding-bottom: 12px;
   font-size: 13px;
   text-align: left;
-  border-bottom: 1px solid var(--grey);
+  border-collapse: 1px solid var(--grey);
 }
 
-.table-data .order table td {
+.container .inside-container table td {
   padding: 16px 0;
 }
 
-.table-data .order table tr td:first-child {
+.container .inside-container table tr td:first-child {
   display: flex;
   align-items: center;
   gap: 12px;
   padding-left: 6px;
 }
 
-.table-data .order table tbody tr:hover {
+.container .inside-container table tbody tr:hover {
   background: var(--grey);
 }
 
-.table-data .order table tr td button.edit {
+.container .inside-container table tr td button.edit {
   padding: 6px 12px;
   font-size: 12px;
   border: none;
@@ -87,7 +87,7 @@ body {
   color: #fff;
   cursor: pointer;
 }
-.table-data .order table tr td button.edit:hover {
+.container .inside-container table tr td button.edit:hover {
   background-color: var(--light-blue);
   color: var(--dark);
 }
@@ -99,7 +99,6 @@ body {
 }
 
 .content {
-  padding: 20px;
   overflow-y: auto;
   background-image: url("/background.jpg");
   background-repeat: repeat;
@@ -117,18 +116,16 @@ body {
 
 .page-item .page-link {
   padding: 5px 10px;
-  border: 1px solid #ccc;
   cursor: pointer;
 }
 
 .active .page-link {
   background-color: #007bff;
   color: white;
-  border-color: #007bff;
 }
 
 @media screen and (max-width: 768px) {
-  .table-data > .order {
+  .container > .inside-container {
     flex-basis: 100%;
   }
 }

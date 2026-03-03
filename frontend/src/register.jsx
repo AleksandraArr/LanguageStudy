@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import "./components/form.css";
+import "./login.css";
 import Button from "./components/button";
+import logo from "./img/logo.png";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -33,36 +34,41 @@ export default function Register() {
   };
 
   return (
-    <form className="form-container" onSubmit={handleRegister}>
-      <h1>Register</h1>
+    <div className="container">
+      <form className="form-container" onSubmit={handleRegister}>
+        <div className="form-logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <h1>Welcome to WordsVoyage</h1>
+        <h4>App developed for your language studying</h4>
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
 
-      <input
-        className="form-input"
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
+        <input
+          className="form-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-      <input
-        className="form-input"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+        <Button text="Register" type="submit" />
+        <p className="form-link">
+          Already have an account?{" "}
+          <span className="link" onClick={() => navigate("/login")}>
+            Login!
+          </span>
+        </p>
 
-      <Button text="Register" type="submit" />
-      <p className="form-link">
-        Already have an account?{" "}
-        <span className="link" onClick={() => navigate("/login")}>
-          Login!
-        </span>
-      </p>
-
-      {message && <p className="form-message">{message}</p>}
-    </form>
+        {message && <p className="form-message">{message}</p>}
+      </form>
+    </div>
   );
 }

@@ -43,7 +43,7 @@ export default function MultipleChoice({ userId }) {
 
     try {
       const res = await fetch(
-        "http://localhost:3000/api/exercise/translate/check",
+        "http://localhost:3000/api/exercise/multiple-choice/check",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

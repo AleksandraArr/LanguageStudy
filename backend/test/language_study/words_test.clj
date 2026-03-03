@@ -3,10 +3,24 @@
             [language_study.words :as words])
   (:import (java.time LocalDate)))
 
-(fact "compare-words should be case-insensitive"
-      (words/compare-words "Hello" "hello") => true
-      (words/compare-words "WORLD" "world") => true
-      (words/compare-words "Clojure" "Java") => false)
+(facts "compare-words basic correctness"
+
+       (fact "should be case-insensitive"
+             (:status (words/compare-words "Hello" "hello")) => :correct
+             (:status (words/compare-words "WORLD" "world")) => :correct
+             (:status (words/compare-words "Clojure" "Java")) => :wrong)
+
+       (fact "should detect one letter replacement"
+             (:status (words/compare-words "ticket" "tifket")) => :almost)
+
+       (fact "should detect one letter deletion"
+             (:status (words/compare-words "ticket" "tickets")) => :almost)
+
+       (fact "should detect transposition"
+             (:status (words/compare-words "ticket" "tikcet")) => :almost)
+
+       (fact "should fail when difference is large"
+             (:status (words/compare-words "ticket" "football")) => :wrong))
 
 (fact "success_rate calculates correctly"
       (words/success_rate {:correct_answers 1 :total_count 2}) => (double 0.5)

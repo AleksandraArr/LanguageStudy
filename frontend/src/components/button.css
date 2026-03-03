@@ -1,10 +1,10 @@
 .button {
   align-items: center;
-  background-color: #0a66c2;
+  background-color: #ff9914;
   border: 0;
   border-radius: 100px;
   box-sizing: border-box;
-  color: #ffffff;
+  color: #235aac;
   cursor: pointer;
   display: inline-flex;
   font-family:
@@ -26,7 +26,7 @@
 
 .button:hover,
 .button:focus {
-  background-color: #16437e;
+  background-color: (--orange);
 }
 
 .button:active {
