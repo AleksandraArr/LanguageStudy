@@ -4,6 +4,7 @@ import Button from "./components/button";
 import AddCategoryForm from "./components/addCategoryForm";
 import Modal from "./components/modal";
 import { FaEdit } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
 
 export default function Categories({ userId }) {
   const [categories, setCategories] = useState([]);
@@ -79,7 +80,12 @@ export default function Categories({ userId }) {
     setShowForm(false);
   };
 
-  if (loading) return <div>Loading categories...</div>;
+  if (loading)
+    return (
+      <div>
+        <ClipLoader />
+      </div>
+    );
 
   return (
     <div className="container">

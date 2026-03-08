@@ -7,6 +7,7 @@ import Button from "./components/button";
 import ExportTxtForm from "./components/exportTxtForm";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
+import { ClipLoader } from "react-spinners";
 
 export default function Dashboard({ userId }) {
   const [words, setWords] = useState([]);
@@ -22,7 +23,6 @@ export default function Dashboard({ userId }) {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
 
-  const offset = currentPage * itemsPerPage;
   const currentItems = words.slice(
     currentPage * itemsPerPage,
     currentPage * itemsPerPage + itemsPerPage,
@@ -110,7 +110,12 @@ export default function Dashboard({ userId }) {
     setShowForm(false);
   };
 
-  if (loading) return <div>Loading words...</div>;
+  if (loading)
+    return (
+      <div>
+        <ClipLoader />
+      </div>
+    );
 
   return (
     <div>

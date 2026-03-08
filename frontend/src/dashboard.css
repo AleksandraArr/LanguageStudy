@@ -59,7 +59,7 @@ body {
 .container .inside-container table th {
   padding-bottom: 12px;
   font-size: 13px;
-  text-align: left;
+  text-align: center;
   border-collapse: 1px solid var(--grey);
 }
 
