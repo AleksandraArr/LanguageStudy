@@ -82,7 +82,7 @@ export default function Categories({ userId }) {
 
   if (loading)
     return (
-      <div>
+      <div className="spinner-container">
         <ClipLoader />
       </div>
     );

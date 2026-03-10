@@ -7,7 +7,7 @@
 
 (defn generate-sentence [words]
   (let [url "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
-        prompt (str "Make only one natural, grammatically correct and short sentence using these three words: "
+        prompt (str "Make only one natural, grammatically correct, not longer than 7 words using these three words: "
                     (clojure.string/join ", " words))
         body {:contents
               [{:parts [{:text prompt}]}]}
@@ -54,7 +54,7 @@
                  "!!! STRICT INSTRUCTIONS !!!\n"
                  "Return ONLY valid JSON array in this format:\n"
                  "[{\"word\": \"example\", \"translation\": \"primer\"}]\n"
-                 "Do not add explanations. Do not add markdown.")
+                 "Word is in target language, translation is in language")
         body {:contents [{:parts [{:text prompt}]}]}
         response (http/post url
                             {:headers {"Content-Type" "application/json"

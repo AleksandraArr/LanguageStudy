@@ -112,7 +112,7 @@ export default function Dashboard({ userId }) {
 
   if (loading)
     return (
-      <div>
+      <div className="spinner-container">
         <ClipLoader />
       </div>
     );
@@ -167,7 +167,7 @@ export default function Dashboard({ userId }) {
                   <th>Translation</th>
                   <th>Success rate</th>
                   <th>Category</th>
-                  <th>Actions</th>
+                  <th className="table-actions">Actions</th>
                 </tr>
               </thead>
               <tbody>

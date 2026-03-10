@@ -92,7 +92,7 @@
       {:status :correct
        :message "Correct!"}
 
-      (> diff 2)
+      (> diff 1)
       {:status :wrong
        :message (str "Wrong. Right answer is: " word2)}
 
@@ -105,7 +105,7 @@
         {:status :wrong
          :message (str "Wrong. Right answer is: " word2)})
 
-      (= len1 len2)
+      (= diff 0)
       (if (or (one-letter-different? in corr)
               (one-transposition-away? in corr))
         {:status :almost

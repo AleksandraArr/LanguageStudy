@@ -59,8 +59,12 @@ body {
 .container .inside-container table th {
   padding-bottom: 12px;
   font-size: 13px;
-  text-align: center;
+  text-align: left;
   border-collapse: 1px solid var(--grey);
+}
+
+.table-actions {
+  text-align: center !important;
 }
 
 .container .inside-container table td {
@@ -122,6 +126,13 @@ body {
 .active .page-link {
   background-color: #007bff;
   color: white;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 @media screen and (max-width: 768px) {
