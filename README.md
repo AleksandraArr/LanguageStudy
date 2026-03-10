@@ -12,3 +12,5 @@
 
 - **Frontend:** React, HTML, CSS, Vite
 - **Backend:** Clojure, Leiningen
+
+For more info visit [Wiki](https://github.com/AleksandraArr/LanguageStudy/wiki).
