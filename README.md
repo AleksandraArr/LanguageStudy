@@ -13,4 +13,16 @@
 - **Frontend:** React, HTML, CSS, Vite
 - **Backend:** Clojure, Leiningen
 
+## How to Run
+
+1. Start the database:
+ - create the database named languagestudy in your PostgreSQL server;
+ - initialize the database by running the SQL commands in database/init.sql;
+   
+2. Start the backend:
+- lein run
+
+3. Start the frontend:
+- npm start
+  
 For more info visit [Wiki](https://github.com/AleksandraArr/LanguageStudy/wiki).
